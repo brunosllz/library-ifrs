@@ -1,7 +1,7 @@
-import clsx from "clsx"
-import { Books, CaretRight, House } from "phosphor-react"
-import { NavLink } from "react-router-dom"
-import { Logo } from "../../assets/Logo"
+import clsx from 'clsx'
+import { Books, CaretRight, House } from 'phosphor-react'
+import { NavLink } from 'react-router-dom'
+import { Logo } from '../../assets/Logo'
 
 export function Sidebar() {
   return (
@@ -16,9 +16,12 @@ export function Sidebar() {
           <NavLink
             to="/home"
             className={({ isActive }) => {
-              return clsx("flex items-center rounded-md px-4 py-2 gap-2 hover:bg-gray-400 hover:text-gray-800 transition-colors", {
-                'bg-gray-100 text-gray-700': isActive
-              })
+              return clsx(
+                'flex items-center rounded-md px-4 py-2 gap-2 hover:bg-gray-400 hover:text-gray-800 transition-colors',
+                {
+                  'bg-gray-100 text-gray-700': isActive,
+                },
+              )
             }}
           >
             <House size={24} weight="fill" />
@@ -26,11 +29,8 @@ export function Sidebar() {
             <span className="font-medium text-sm">Home</span>
           </NavLink>
 
-
           <details className="group">
-            <summary
-              className="flex gap-2 cursor-pointer items-center rounded-lg px-4 py-2"
-            >
+            <summary className="flex gap-2 cursor-pointer items-center rounded-lg px-4 py-2">
               <Books size={24} className="" />
 
               <span className="text-sm font-medium ">Livros</span>
@@ -44,17 +44,22 @@ export function Sidebar() {
               <NavLink
                 to="books"
                 className={({ isActive }) => {
-                  return clsx("flex items-center rounded-md px-4 py-2 gap-2 hover:bg-gray-400 hover:text-gray-800 transition-colors", {
-                    'bg-gray-100 text-gray-700': isActive
-                  })
+                  return clsx(
+                    'flex items-center rounded-md px-4 py-2 gap-2 hover:bg-gray-400 hover:text-gray-800 transition-colors',
+                    {
+                      'bg-gray-100 text-gray-700': isActive,
+                    },
+                  )
                 }}
               >
-                <span className="ml-3 text-sm font-medium">Gerenciar livros</span>
+                <span className="ml-3 text-sm font-medium">
+                  Gerenciar livros
+                </span>
               </NavLink>
             </nav>
           </details>
         </nav>
       </div>
-    </aside >
+    </aside>
   )
 }

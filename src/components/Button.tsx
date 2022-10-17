@@ -8,11 +8,7 @@ interface ButtonIconProps {
 }
 
 function ButtonIcon({ children, className }: ButtonIconProps) {
-  return (
-    <Slot className={clsx('h-5 w-5', className)}>
-      {children}
-    </Slot>
-  )
+  return <Slot className={clsx('h-5 w-5', className)}>{children}</Slot>
 }
 
 ButtonIcon.displayName = 'Button.Icon'
@@ -23,11 +19,7 @@ interface ButtonTitleProps {
 }
 
 function ButtonTitle({ children, classNames }: ButtonTitleProps) {
-  return (
-    <span className={clsx('block', classNames)}>
-      {children}
-    </span>
-  )
+  return <span className={clsx('block', classNames)}>{children}</span>
 }
 
 ButtonTitle.displayName = 'Button.Title'
@@ -38,11 +30,20 @@ interface ButtonRootProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean
 }
 
-function ButtonRoot({ children, className, asChild, ...props }: ButtonRootProps) {
+function ButtonRoot({
+  children,
+  className,
+  asChild,
+  ...props
+}: ButtonRootProps) {
   const Comp = asChild ? Slot : 'button'
+
   return (
     <Comp
-      className={clsx('flex gap-2 items-center py-3 bg-violet-900 px-4 rounded-md', className)}
+      className={clsx(
+        'flex gap-2 items-center justify-center py-3 bg-violet-900 px-4 rounded-md',
+        className,
+      )}
       {...props}
     >
       {children}
