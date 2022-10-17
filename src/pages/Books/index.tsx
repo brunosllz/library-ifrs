@@ -1,19 +1,28 @@
+import * as Dialog from '@radix-ui/react-dialog';
+import { Button } from '../../components/Button';
+import { TextInput } from '../../components/TextInput';
+import { NewBookForm } from './components/NewBookForm';
+
 import { Plus, MagnifyingGlass, Trash } from 'phosphor-react'
-import { Button } from '../components/Button'
-import { TextInput } from '../components/TextInput'
 
 export function Books() {
   return (
     <main className="flex flex-col">
       <header className="bg-gray-700 py-4 px-6 flex justify-between items-center w-full">
-        <Button.Root>
-          <Button.Icon>
-            <Plus weight='bold' />
-          </Button.Icon>
-          <Button.Title>
-            Adicionar Livro
-          </Button.Title>
-        </Button.Root>
+        <Dialog.Root>
+          <Dialog.Trigger asChild>
+            <Button.Root>
+              <Button.Icon>
+                <Plus weight='bold' />
+              </Button.Icon>
+              <Button.Title>
+                Adicionar Livro
+              </Button.Title>
+            </Button.Root>
+          </Dialog.Trigger>
+
+          <NewBookForm />
+        </Dialog.Root>
 
         <div className='w-80'>
           <TextInput.Root className='border border-gray-400'>
