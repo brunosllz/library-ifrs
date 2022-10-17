@@ -27,20 +27,20 @@ interface TextInputIconProps {
 }
 
 function TextInputIcon({ children }: TextInputIconProps) {
-  return <Slot className="w-5 h-5 text-gray-400">{children}</Slot>
+  return <Slot className="w-5 h-5 text-gray-300">{children}</Slot>
 }
 
 TextInputIcon.displayName = 'TextInput.Icon'
 
 export interface TextInputInputProps
-  extends ComponentPropsWithoutRef<'input'> {}
+  extends ComponentPropsWithoutRef<'input'> { }
 
 const TextInputInput = forwardRef<HTMLInputElement, TextInputInputProps>(
   ({ children, color = 'cyan', ...props }: TextInputInputProps, ref) => {
     return (
       <input
         ref={ref}
-        className="flex-1 text-gray-100 placeholder:text-gray-400 text-sm outline-none bg-transparent"
+        className="flex-1 text-gray-100 placeholder:text-gray-300 text-sm outline-none bg-transparent"
         {...props}
       />
     )

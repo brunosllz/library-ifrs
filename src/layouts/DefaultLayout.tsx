@@ -10,7 +10,7 @@ export function DefaultLayout() {
 
       <div className="flex flex-col flex-1">
         <header className="flex w-full px-6 py-4 items-center justify-between border-b border-gray-500 bg-gray-800">
-          <div className="flex gap-1 items-end">
+          <div className="flex gap-2 items-end">
             <span className="leading-none">Livros</span>
             <CaretRight size={14} />
             <strong className="leading-none">Gerenciar livros</strong>
