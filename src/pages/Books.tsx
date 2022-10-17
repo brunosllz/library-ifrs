@@ -65,7 +65,7 @@ export function Books() {
                   <div className='flex items-center justify-center gap-2'>
                     <Button.Root>
                       <Button.Title>
-                        Detalhe
+                        Detalhes
                       </Button.Title>
                     </Button.Root>
 

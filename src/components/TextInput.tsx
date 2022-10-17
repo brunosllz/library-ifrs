@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, ReactNode, forwardRef, ComponentPropsWithoutRef } from 'react';
+import { ReactNode, forwardRef, ComponentPropsWithoutRef } from 'react';
 import clsx from "clsx"
 import { Slot } from '@radix-ui/react-slot';
 
