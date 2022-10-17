@@ -61,11 +61,14 @@ export function BooksTable() {
               </td>
               <td className="p-3 border-t-4 border-gray-700 bg-gray-400 ">
                 <div className="flex items-center justify-center gap-2">
-                  <Button.Root onClick={() => handleBookDetails(book.id)}>
+                  <Button.Root
+                    onClick={() => handleBookDetails(book.id)}
+                    className="py-2"
+                  >
                     <Button.Title>Detalhes</Button.Title>
                   </Button.Root>
 
-                  <Button.Root className="bg-red-500">
+                  <Button.Root className="bg-red-500 py-2 px-3">
                     <Button.Icon>
                       <Trash />
                     </Button.Icon>

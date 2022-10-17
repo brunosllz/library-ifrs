@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { Button } from '../../components/Button'
 import { TextInput } from '../../components/TextInput'
-import { BooksTable } from '../Home/components/BooksTable'
+import { BooksTable } from './components/BooksTable'
 import { NewBookForm } from './components/NewBookForm'
 
 import { Plus, MagnifyingGlass } from 'phosphor-react'
