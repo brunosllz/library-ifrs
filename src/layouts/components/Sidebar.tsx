@@ -31,7 +31,7 @@ export function Sidebar() {
 
           <details className="group">
             <summary className="flex gap-2 cursor-pointer items-center px-4 py-2 group-open:bg-gray-600">
-              <Books size={24} className="" />
+              <Books size={24} weight="fill" />
 
               <span className="text-sm font-medium">Livros</span>
 
