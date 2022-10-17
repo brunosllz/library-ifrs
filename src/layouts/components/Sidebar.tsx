@@ -1,11 +1,12 @@
 import clsx from 'clsx'
-import { Books, CaretRight, House } from 'phosphor-react'
 import { NavLink } from 'react-router-dom'
+
 import { Logo } from '../../assets/Logo'
+import { Books, CaretRight, House } from 'phosphor-react'
 
 export function Sidebar() {
   return (
-    <aside className="flex min-h-screen w-full max-w-[240px] flex-col justify-between bg-gray-800 py-6">
+    <aside className="flex min-h-screen min-w-[240px] flex-col justify-between bg-gray-800 py-6">
       <div className="flex flex-col">
         <header className="flex gap-3 flex-col items-center rounded-md bg-transparent py-6">
           <Logo />

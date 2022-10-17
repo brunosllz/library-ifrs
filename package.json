@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:server": "json-server --delay 300 --port 3333 --watch server.json",
+    "dev:server": "json-server --port 3333 --watch --delay 500 server.json",
     "dev:lint": "eslint src --ext .ts,.tsx --fix",
     "build": "tsc && vite build",
     "preview": "vite preview"
@@ -26,6 +26,7 @@
     "zod": "^3.19.1"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.3",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.1.0",
