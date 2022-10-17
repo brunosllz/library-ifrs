@@ -38,7 +38,11 @@ module.exports = {
         900: '#4C1D95'
       }
     },
-    extend: {},
+    extend: {
+      animation: {
+        'spin-slow': 'spin 4s linear infinite'
+      }
+    },
   },
   plugins: [],
 }
