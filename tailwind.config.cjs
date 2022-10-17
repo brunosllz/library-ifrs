@@ -11,9 +11,10 @@ module.exports = {
         900: '#121214',
         800: '#18181B',
         700: '#202024',
-        600: '#29292E',
-        500: '#323238',
-        400: '#7C7C8A',
+        600: '#2A2634',
+        500: '#29292E',
+        400: '#323238',
+        300: '#7C7C8A',
         200: '#C4C4CC',
         100: '#E1E1E6',
       },
@@ -35,13 +36,13 @@ module.exports = {
       },
 
       violet: {
-        900: '#4C1D95'
-      }
+        900: '#4C1D95',
+      },
     },
     extend: {
       animation: {
-        'spin-slow': 'spin 4s linear infinite'
-      }
+        'spin-slow': 'spin 4s linear infinite',
+      },
     },
   },
   plugins: [],
