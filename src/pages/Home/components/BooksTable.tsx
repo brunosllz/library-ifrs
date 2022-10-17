@@ -1,7 +1,9 @@
-import { Trash } from 'phosphor-react'
 import { useEffect, useState } from 'react'
-import { Button } from '../../../components/Button'
 import { api } from '../../../service/api'
+
+import { Button } from '../../../components/Button'
+
+import { Trash } from 'phosphor-react'
 
 type BooksType = {
   id: string

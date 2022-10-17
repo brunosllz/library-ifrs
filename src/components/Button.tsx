@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react'
+import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react'
 import { Slot } from '@radix-ui/react-slot'
 import clsx from 'clsx'
 
@@ -24,32 +24,30 @@ function ButtonTitle({ children, classNames }: ButtonTitleProps) {
 
 ButtonTitle.displayName = 'Button.Title'
 
-interface ButtonRootProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonRootProps extends ComponentPropsWithoutRef<'button'> {
   children: ReactNode
   className?: string
   asChild?: boolean
 }
 
-function ButtonRoot({
-  children,
-  className,
-  asChild,
-  ...props
-}: ButtonRootProps) {
-  const Comp = asChild ? Slot : 'button'
+const ButtonRoot = forwardRef<HTMLButtonElement, ButtonRootProps>(
+  ({ children, className, asChild, ...props }: ButtonRootProps, ref) => {
+    const Comp = asChild ? Slot : 'button'
 
-  return (
-    <Comp
-      className={clsx(
-        'flex gap-2 items-center justify-center py-3 bg-violet-900 px-4 rounded-md',
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </Comp>
-  )
-}
+    return (
+      <Comp
+        ref={ref}
+        className={clsx(
+          'flex gap-2 items-center justify-center py-3 bg-violet-900 px-4 rounded-md',
+          className,
+        )}
+        {...props}
+      >
+        {children}
+      </Comp>
+    )
+  },
+)
 
 ButtonRoot.displayName = 'Button.Root'
 
