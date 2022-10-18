@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
-import { api } from '../../../service/api'
+import { useNavigate } from 'react-router-dom'
+import { useQuery } from 'react-query'
+import { api } from '../../../lib/api'
 
 import { Button } from '../../../components/Button'
 
-import { Trash } from 'phosphor-react'
-import { useNavigate } from 'react-router-dom'
+import { CircleNotch, Trash } from 'phosphor-react'
+import { useState } from 'react'
 
 type BooksType = {
   id: string
@@ -25,21 +26,32 @@ export function BooksTable() {
   async function fetchBooks() {
     const response = await api.get('/books')
 
-    setBooks(response.data)
+    return response.data
   }
+
+  const { data, isError, error, isFetching } = useQuery<BooksType[], Error>(
+    ['books'],
+    fetchBooks,
+    {
+      onSuccess: (response) => {
+        console.log('response fetch:', response)
+
+        setBooks(response)
+      },
+    },
+  )
+
+  console.log('react query data: ', data)
+  console.log('books state: ', books)
 
   function handleBookDetails(bookId: string) {
     navigate(`details/${bookId}`)
   }
 
-  useEffect(() => {
-    fetchBooks()
-  }, [])
-
   return (
     <div className="overflow-auto">
       <table className="min-w-full border-collapse mt-6 text-sm">
-        <thead className="">
+        <thead>
           <tr className="text-left">
             <th className="p-4 pl-8 bg-gray-500 rounded-tl-md w-1/2">Nome</th>
             <th className="p-4 bg-gray-500">Editora</th>
@@ -47,10 +59,10 @@ export function BooksTable() {
             <th className="p-4 text-center bg-gray-500 rounded-tr-md">Ações</th>
           </tr>
         </thead>
-        <tbody className="">
+        <tbody>
           {books.map((book) => {
             return (
-              <tr key={book.id} className="">
+              <tr key={book.id}>
                 <td className="truncate p-3 pl-8 border-t-4 border-gray-700 bg-gray-400 w-1/2">
                   {book.name}
                 </td>
@@ -81,6 +93,20 @@ export function BooksTable() {
           })}
         </tbody>
       </table>
+
+      {isFetching && (
+        <div className="w-full h-56 flex flex-col gap-2 items-center justify-center">
+          <CircleNotch className="animate-spin-slow" size={32} />
+          <span>Os dados estão sendo carregados</span>
+        </div>
+      )}
+
+      {isError && (
+        <div className="w-full h-56 flex flex-col gap-2 items-center justify-center">
+          <span className="text-2xl font-bold">Ops! Error</span>
+          <span>{error.message}</span>
+        </div>
+      )}
     </div>
   )
 }

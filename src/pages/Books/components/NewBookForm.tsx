@@ -10,7 +10,7 @@ import { X } from 'phosphor-react'
 const newBookFormSchemaValidation = z.object({
   publishingCompany: z.string(),
   name: z.string(),
-  imageUrl: z.string(),
+  imageUrl: z.string().startsWith('https://www.').min(1),
   countPage: z.number(),
   description: z.string(),
   pageCount: z.string(),
@@ -101,9 +101,6 @@ export function NewBookForm() {
               className="mt-1 resize-none h-24 bg-gray-700 rounded outline-none focus:ring-1 focus:ring-cyan-500 text-sm"
               {...register('description')}
             ></textarea>
-            {/* <TextInput.Root className="mt-1">
-            <TextInput.Input id="description" {...register('description')} />
-          </TextInput.Root> */}
           </label>
 
           <Button.Root className="mt-3">

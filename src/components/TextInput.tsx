@@ -32,7 +32,7 @@ function TextInputIcon({ children }: TextInputIconProps) {
 
 TextInputIcon.displayName = 'TextInput.Icon'
 
-interface TextInputInputProps extends ComponentPropsWithoutRef<'input'> { }
+interface TextInputInputProps extends ComponentPropsWithoutRef<'input'> {}
 
 const TextInputInput = forwardRef<HTMLInputElement, TextInputInputProps>(
   ({ ...props }: TextInputInputProps, ref) => {

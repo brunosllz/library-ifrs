@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { api } from '../service/api'
+import { api } from '../lib/api'
 
 export function BookDetails() {
   const { bookId } = useParams()
