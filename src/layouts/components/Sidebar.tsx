@@ -15,7 +15,8 @@ export function Sidebar() {
 
         <nav aria-label="Main Nav" className="mt-6 flex flex-col space-y-1">
           <NavLink
-            to="/home"
+            to="/"
+            end
             className={({ isActive }) => {
               return clsx(
                 'flex items-center px-4 py-2 gap-2 hover:bg-gray-700 transition-colors',
