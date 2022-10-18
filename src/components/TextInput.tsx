@@ -2,7 +2,7 @@ import { ReactNode, forwardRef, ComponentPropsWithoutRef } from 'react'
 import clsx from 'clsx'
 import { Slot } from '@radix-ui/react-slot'
 
-export interface TextInputRootProps {
+interface TextInputRootProps {
   children: ReactNode
   className?: string
 }
@@ -32,11 +32,10 @@ function TextInputIcon({ children }: TextInputIconProps) {
 
 TextInputIcon.displayName = 'TextInput.Icon'
 
-export interface TextInputInputProps
-  extends ComponentPropsWithoutRef<'input'> {}
+interface TextInputInputProps extends ComponentPropsWithoutRef<'input'> { }
 
 const TextInputInput = forwardRef<HTMLInputElement, TextInputInputProps>(
-  ({ children, color = 'cyan', ...props }: TextInputInputProps, ref) => {
+  ({ ...props }: TextInputInputProps, ref) => {
     return (
       <input
         ref={ref}
