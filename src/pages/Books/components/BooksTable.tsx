@@ -29,20 +29,15 @@ export function BooksTable() {
     return response.data
   }
 
-  const { data, isError, error, isFetching } = useQuery<BooksType[], Error>(
+  const { isError, error, isFetching } = useQuery<BooksType[], Error>(
     ['books'],
     fetchBooks,
     {
       onSuccess: (response) => {
-        console.log('response fetch:', response)
-
         setBooks(response)
       },
     },
   )
-
-  console.log('react query data: ', data)
-  console.log('books state: ', books)
 
   function handleBookDetails(bookId: string) {
     navigate(`details/${bookId}`)
