@@ -2,22 +2,12 @@ import { ReactNode, forwardRef, ComponentPropsWithoutRef } from 'react'
 import clsx from 'clsx'
 import { Slot } from '@radix-ui/react-slot'
 
-interface TextInputRootProps {
+export interface TextInputRootProps {
   children: ReactNode
-  className?: string
 }
 
-function TextInputRoot({ children, className }: TextInputRootProps) {
-  return (
-    <div
-      className={clsx(
-        'flex items-center gap-3 w-full py-4 px-3 h-12 bg-gray-700 rounded hover:ring-1 focus-within:ring-1 hover:ring-cyan-500 focus-within:ring-cyan-500',
-        className,
-      )}
-    >
-      {children}
-    </div>
-  )
+function TextInputRoot({ children }: TextInputRootProps) {
+  return <div className="flex flex-col justify-start gap-2">{children}</div>
 }
 
 TextInputRoot.displayName = 'TextInput.Root'
@@ -27,21 +17,39 @@ interface TextInputIconProps {
 }
 
 function TextInputIcon({ children }: TextInputIconProps) {
-  return <Slot className="w-5 h-5 text-gray-300">{children}</Slot>
+  return <Slot className="w-6 h-6 text-gray-400">{children}</Slot>
 }
 
 TextInputIcon.displayName = 'TextInput.Icon'
 
-interface TextInputInputProps extends ComponentPropsWithoutRef<'input'> {}
+export interface TextInputInputProps extends ComponentPropsWithoutRef<'input'> {
+  children?: ReactNode
+  color?: 'cyan' | 'yellow'
+  error?: boolean
+}
 
 const TextInputInput = forwardRef<HTMLInputElement, TextInputInputProps>(
-  ({ ...props }: TextInputInputProps, ref) => {
+  ({ children, color = 'cyan', error, ...props }: TextInputInputProps, ref) => {
     return (
-      <input
-        ref={ref}
-        className="flex-1 text-gray-100 placeholder:text-gray-300 text-sm outline-none bg-transparent"
-        {...props}
-      />
+      <div
+        className={clsx(
+          'flex items-center gap-3 w-full  py-4 px-3 h-12 bg-gray-700 rounded hover:ring-1 focus-within:ring-1',
+          {
+            'hover:ring-cyan-500 focus-within:ring-cyan-500': color === 'cyan',
+            'hover:ring-yellow-500 focus-within:ring-yellow-500':
+              color === 'yellow',
+            'ring-1 ring-red-500 focus-within:ring-red-500 hover:ring-red-500':
+              error,
+          },
+        )}
+      >
+        {children}
+        <input
+          ref={ref}
+          className="flex-1 text-xs text-gray-100 placeholder:text-gray-400 outline-none bg-transparent"
+          {...props}
+        />
+      </div>
     )
   },
 )
