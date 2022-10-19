@@ -25,10 +25,11 @@ export function Books() {
 
         <div className="w-80">
           <TextInput.Root className="border border-gray-400">
-            <TextInput.Input placeholder="Procure pelo nome do livro" />
-            <TextInput.Icon>
-              <MagnifyingGlass />
-            </TextInput.Icon>
+            <TextInput.Input placeholder="Procure pelo nome do livro">
+              <TextInput.Icon>
+                <MagnifyingGlass />
+              </TextInput.Icon>
+            </TextInput.Input>
           </TextInput.Root>
         </div>
       </header>

@@ -44,8 +44,6 @@ export function NewBookForm() {
     resolver: zodResolver(newBookFormSchemaValidation),
   })
 
-  console.log(errors)
-
   function handleNewBookForm(data: any) {
     console.log(data)
   }
@@ -76,7 +74,11 @@ export function NewBookForm() {
           <label htmlFor="name">
             Nome do livro
             <TextInput.Root className="mt-1">
-              <TextInput.Input id="name" {...register('name')} />
+              <TextInput.Input
+                id="name"
+                placeholder="Do mil ao milhão: Sem cortar o cafezinho"
+                {...register('name')}
+              />
             </TextInput.Root>
             <TextInput.ErrorMessage errorMessage={errors.name?.message} />
           </label>
@@ -86,6 +88,7 @@ export function NewBookForm() {
             <TextInput.Root className="mt-1">
               <TextInput.Input
                 id="publishingCompany"
+                placeholder="HarperCollins Brasil"
                 {...register('publishingCompany')}
               />
               <TextInput.ErrorMessage
@@ -139,9 +142,15 @@ export function NewBookForm() {
           <label htmlFor="description" className="flex flex-col gap-2">
             decrição do livro
             <textarea
-              className="mt-1 resize-none h-24 bg-gray-700 rounded outline-none focus:ring-1 focus:ring-cyan-500 text-sm"
+              placeholder="Em seu primeiro livro, Thiago Nigro, criador da plataforma 'O Primo Rico', ensina aos leitores os três pilares para atingir a independência..."
+              className="mt-1 resize-none h-24 bg-gray-700 rounded outline-none focus:ring-1 focus:ring-cyan-500 text-sm placeholder:text-gray-300"
               {...register('description')}
             ></textarea>
+            {!!errors.description && (
+              <span className="text-xs text-red-500">
+                {errors.description.message}
+              </span>
+            )}
           </label>
 
           <Button.Root className="mt-3">

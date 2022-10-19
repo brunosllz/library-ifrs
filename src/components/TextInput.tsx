@@ -59,12 +59,12 @@ const TextInputInput = forwardRef<HTMLInputElement, TextInputInputProps>(
           className,
         )}
       >
-        {children}
         <input
           ref={ref}
-          className="flex-1 text-xs text-gray-100 placeholder:text-gray-300 outline-none bg-transparent"
+          className="flex-1 text-sm text-gray-100 placeholder:text-gray-300 outline-none bg-transparent"
           {...props}
         />
+        {children}
       </div>
     )
   },
