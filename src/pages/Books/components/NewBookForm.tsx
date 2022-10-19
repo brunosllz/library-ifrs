@@ -6,27 +6,57 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { Button } from '../../../components/Button'
 import { TextInput } from '../../../components/TextInput'
 import { X } from 'phosphor-react'
+import { publishedYearMask } from '../../../utils/publishedYearMask'
+import { useEffect } from 'react'
 
 const newBookFormSchemaValidation = z.object({
-  publishingCompany: z.string(),
-  name: z.string(),
-  imageUrl: z.string().startsWith('https://www.').min(1),
-  countPage: z.number(),
-  description: z.string(),
-  pageCount: z.string(),
-  publishedYear: z.string(),
+  name: z
+    .string({ required_error: 'Informe o nome do livro' })
+    .min(1, { message: 'Informe o nome do livro' }),
+  publishingCompany: z
+    .string({ required_error: 'Informe o nome da editora' })
+    .min(1, { message: 'Informe o nome da editora' }),
+  imageUrl: z
+    .string({ required_error: 'Informe a URL da imagem' })
+    .startsWith('https://www.', { message: 'Informe uma URL válida' })
+    .min(1, { message: 'Informe a URL da imagem' }),
+  countPage: z.string({
+    required_error: 'Informe o número de páginas',
+    invalid_type_error: 'Informe o número de páginas',
+  }),
+  publishedYear: z
+    .string({ required_error: 'Infome o ano de publicação' })
+    .min(4, 'Infome o ano de publicação')
+    .regex(/^(1|2)\d{3}/, { message: 'Informe um ano válido' }),
+  description: z.string().min(1, { message: 'Informe uma descrição do livro' }),
 })
 
 type newBookFormType = z.infer<typeof newBookFormSchemaValidation>
 
 export function NewBookForm() {
-  const { register, handleSubmit } = useForm<newBookFormType>({
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<newBookFormType>({
     resolver: zodResolver(newBookFormSchemaValidation),
   })
+
+  console.log(errors)
 
   function handleNewBookForm(data: any) {
     console.log(data)
   }
+
+  const publishedYearValue = watch('publishedYear')
+  const countPage = watch('countPage')
+
+  useEffect(() => {
+    setValue('publishedYear', publishedYearMask(publishedYearValue))
+    setValue('countPage', publishedYearMask(countPage))
+  }, [setValue, publishedYearValue, countPage])
 
   return (
     <Dialog.Portal>
@@ -48,6 +78,7 @@ export function NewBookForm() {
             <TextInput.Root className="mt-1">
               <TextInput.Input id="name" {...register('name')} />
             </TextInput.Root>
+            <TextInput.ErrorMessage errorMessage={errors.name?.message} />
           </label>
 
           <label htmlFor="publishingCompany">
@@ -56,6 +87,9 @@ export function NewBookForm() {
               <TextInput.Input
                 id="publishingCompany"
                 {...register('publishingCompany')}
+              />
+              <TextInput.ErrorMessage
+                errorMessage={errors.publishingCompany?.message}
               />
             </TextInput.Root>
           </label>
@@ -68,6 +102,7 @@ export function NewBookForm() {
                 placeholder="https://www.image.com.br"
                 {...register('imageUrl')}
               />
+              <TextInput.ErrorMessage errorMessage={errors.imageUrl?.message} />
             </TextInput.Root>
           </label>
 
@@ -80,6 +115,9 @@ export function NewBookForm() {
                   placeholder="000"
                   {...register('countPage')}
                 />
+                <TextInput.ErrorMessage
+                  errorMessage={errors.countPage?.message}
+                />
               </TextInput.Root>
             </label>
 
@@ -90,6 +128,9 @@ export function NewBookForm() {
                   id="publishedYear"
                   placeholder="2000"
                   {...register('publishedYear')}
+                />
+                <TextInput.ErrorMessage
+                  errorMessage={errors.publishedYear?.message}
                 />
               </TextInput.Root>
             </label>

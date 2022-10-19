@@ -4,10 +4,15 @@ import { Slot } from '@radix-ui/react-slot'
 
 export interface TextInputRootProps {
   children: ReactNode
+  className?: string
 }
 
-function TextInputRoot({ children }: TextInputRootProps) {
-  return <div className="flex flex-col justify-start gap-2">{children}</div>
+function TextInputRoot({ children, className }: TextInputRootProps) {
+  return (
+    <div className={clsx('flex flex-col justify-start gap-2', className)}>
+      {children}
+    </div>
+  )
 }
 
 TextInputRoot.displayName = 'TextInput.Root'
@@ -26,14 +31,24 @@ export interface TextInputInputProps extends ComponentPropsWithoutRef<'input'> {
   children?: ReactNode
   color?: 'cyan' | 'yellow'
   error?: boolean
+  className?: string
 }
 
 const TextInputInput = forwardRef<HTMLInputElement, TextInputInputProps>(
-  ({ children, color = 'cyan', error, ...props }: TextInputInputProps, ref) => {
+  (
+    {
+      children,
+      color = 'cyan',
+      error,
+      className,
+      ...props
+    }: TextInputInputProps,
+    ref,
+  ) => {
     return (
       <div
         className={clsx(
-          'flex items-center gap-3 w-full  py-4 px-3 h-12 bg-gray-700 rounded hover:ring-1 focus-within:ring-1',
+          'flex items-center gap-3 w-full py-4 px-3 h-12 bg-gray-700 rounded hover:ring-1 focus-within:ring-1',
           {
             'hover:ring-cyan-500 focus-within:ring-cyan-500': color === 'cyan',
             'hover:ring-yellow-500 focus-within:ring-yellow-500':
@@ -41,12 +56,13 @@ const TextInputInput = forwardRef<HTMLInputElement, TextInputInputProps>(
             'ring-1 ring-red-500 focus-within:ring-red-500 hover:ring-red-500':
               error,
           },
+          className,
         )}
       >
         {children}
         <input
           ref={ref}
-          className="flex-1 text-xs text-gray-100 placeholder:text-gray-400 outline-none bg-transparent"
+          className="flex-1 text-xs text-gray-100 placeholder:text-gray-300 outline-none bg-transparent"
           {...props}
         />
       </div>
