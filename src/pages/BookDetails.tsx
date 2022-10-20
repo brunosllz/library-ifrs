@@ -38,7 +38,7 @@ export function BookDetails() {
   )
 
   if (!data) {
-    return
+    return <div>Error</div>
   }
 
   return (
@@ -58,10 +58,10 @@ export function BookDetails() {
         </Dialog.Root>
       </header>
 
-      <section className="px-10 my-6">
+      <section className="px-10 my-5">
         <div className="bg-gray-700 p-6 rounded-md">
           <div className="flex gap-10">
-            <div className="min-w-[306px] h-[480px] rounded-md overflow-hidden flex items-center justify-center">
+            <div className="min-w-[300px] h-[464px] rounded-md overflow-hidden flex items-center justify-center">
               <img
                 src={data.imageUrl}
                 alt={data.name}
@@ -72,11 +72,11 @@ export function BookDetails() {
             <div className="flex flex-col gap-4">
               <strong className="font-bold text-2xl">{data.name}</strong>
 
-              <div>
+              <div className="h-[298px] overflow-auto">
                 <p>{data.description}</p>
               </div>
 
-              <div className="flex gap-8 ">
+              <div className="flex gap-8 mt-4">
                 <div className="flex flex-col gap-2">
                   <strong>
                     Categoria:{' '}
