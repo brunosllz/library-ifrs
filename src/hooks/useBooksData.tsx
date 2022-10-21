@@ -25,8 +25,15 @@ interface useBooksDataProps {
 }
 
 export function useBooksData({ onSuccess, onError }: useBooksDataProps) {
-  return useQuery<BookProps[], Error>(['books'], fetchBooksData, {
-    onSuccess,
-    onError,
-  })
+  const queryResponse = useQuery<BookProps[], Error>(
+    ['books'],
+    fetchBooksData,
+    {
+      onSuccess,
+      onError,
+      retry: 2,
+    },
+  )
+
+  return { books: queryResponse.data ?? [], ...queryResponse }
 }

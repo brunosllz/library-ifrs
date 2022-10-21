@@ -4,8 +4,10 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Button } from '../../../components/Button'
 
 import { CircleNotch, Trash, WarningCircle } from 'phosphor-react'
+import { useState } from 'react'
 
 export function BooksTable() {
+  const [dontHasBooks, setDontHasBooks] = useState(false)
   const navigate = useNavigate()
   const [searchBook] = useSearchParams()
 
@@ -17,24 +19,25 @@ export function BooksTable() {
     const searchBookName = name.get('name')?.toLocaleLowerCase()
 
     if (searchBookName) {
-      const dataFiltered = data.filter((book) => {
+      const bookFiltered = data.filter((book) => {
         return book.name.toLowerCase().includes(searchBookName)
       })
 
-      return dataFiltered
+      if (!bookFiltered) {
+        setDontHasBooks(true)
+
+        return bookFiltered
+      }
+
+      return bookFiltered
     }
 
     return data
   }
 
-  const { data, isFetching, isError, error } = useBooksData({})
+  const { books, isFetching, isError, error } = useBooksData({})
 
-  if (!data) {
-    return <div>Error</div>
-  }
-
-  const books = filterByName(data, searchBook)
-  const dontHasBooks = books.length === 0
+  const booksFilter = filterByName(books, searchBook)
 
   return (
     <div className="overflow-auto">
@@ -48,7 +51,7 @@ export function BooksTable() {
           </tr>
         </thead>
         <tbody>
-          {books.map((book) => {
+          {booksFilter.map((book) => {
             return (
               <tr key={book.id}>
                 <td className="truncate p-3 pl-8 border-t-4 border-gray-700 bg-gray-400 w-1/2">
