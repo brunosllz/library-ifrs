@@ -1,47 +1,40 @@
-import { useNavigate } from 'react-router-dom'
-import { useQuery } from 'react-query'
-import { api } from '../../../lib/api'
+import { BookProps, useBooksData } from '../../../hooks/useBooksData'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { Button } from '../../../components/Button'
 
-import { CircleNotch, Trash } from 'phosphor-react'
-import { useState } from 'react'
-
-type BooksType = {
-  id: string
-  name: string
-  publishingCompany: string
-  description: string
-  year: string
-  pageCount: string
-  imageUrl: string
-  categoryId: string
-  createdAt: string
-}
+import { CircleNotch, Trash, WarningCircle } from 'phosphor-react'
 
 export function BooksTable() {
-  const [books, setBooks] = useState<BooksType[]>([])
   const navigate = useNavigate()
-
-  async function fetchBooks() {
-    const response = await api.get('/books')
-
-    return response.data
-  }
-
-  const { isError, error, isFetching } = useQuery<BooksType[], Error>(
-    ['books'],
-    fetchBooks,
-    {
-      onSuccess: (response) => {
-        setBooks(response)
-      },
-    },
-  )
+  const [searchBook] = useSearchParams()
 
   function handleBookDetails(bookId: string) {
     navigate(`details/${bookId}`)
   }
+
+  function filterByName(data: BookProps[], name: URLSearchParams) {
+    const searchBookName = name.get('name')?.toLocaleLowerCase()
+
+    if (searchBookName) {
+      const dataFiltered = data.filter((book) => {
+        return book.name.toLowerCase().includes(searchBookName)
+      })
+
+      return dataFiltered
+    }
+
+    return data
+  }
+
+  const { data, isFetching, isError, error } = useBooksData({})
+
+  if (!data) {
+    return <div>Error</div>
+  }
+
+  const books = filterByName(data, searchBook)
+  const dontHasBooks = books.length === 0
 
   return (
     <div className="overflow-auto">
@@ -88,6 +81,13 @@ export function BooksTable() {
           })}
         </tbody>
       </table>
+
+      {dontHasBooks && (
+        <div className="w-full h-56 flex flex-col gap-2 items-center justify-center">
+          <WarningCircle size={32} weight="bold" />
+          <span>Não foi possível encontrar um livro</span>
+        </div>
+      )}
 
       {isFetching && (
         <div className="w-full h-56 flex flex-col gap-2 items-center justify-center">

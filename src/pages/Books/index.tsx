@@ -1,3 +1,7 @@
+import { useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+
 import * as Dialog from '@radix-ui/react-dialog'
 import { Button } from '../../components/Button'
 import { TextInput } from '../../components/TextInput'
@@ -7,6 +11,21 @@ import { NewBookForm } from './components/NewBookForm'
 import { Plus, MagnifyingGlass } from 'phosphor-react'
 
 export function Books() {
+  const [searchBook, setSearchBook] = useSearchParams()
+  const { register, watch } = useForm()
+
+  const searchBookValue = watch('searchBook')
+
+  useEffect(() => {
+    setSearchBook(() => {
+      if (!searchBookValue) {
+        return ''
+      } else {
+        return { name: searchBookValue.toLowerCase() }
+      }
+    })
+  }, [searchBookValue, setSearchBook])
+
   return (
     <main className="flex flex-col">
       <header className="bg-gray-700 py-4 px-6 flex justify-between items-center w-full">
@@ -23,15 +42,18 @@ export function Books() {
           <NewBookForm />
         </Dialog.Root>
 
-        <div className="w-80">
+        <form className="w-80">
           <TextInput.Root className="border border-gray-400">
-            <TextInput.Input placeholder="Procure pelo nome do livro">
+            <TextInput.Input
+              placeholder="Procure pelo nome do livro"
+              {...register('searchBook')}
+            >
               <TextInput.Icon>
                 <MagnifyingGlass />
               </TextInput.Icon>
             </TextInput.Input>
           </TextInput.Root>
-        </div>
+        </form>
       </header>
 
       <section className="px-6 mt-6">
