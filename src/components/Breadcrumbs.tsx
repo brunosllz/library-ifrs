@@ -15,16 +15,13 @@ export function Breadcrumbs() {
       {breadcrumbs.map(
         ({ match: { pathname }, breadcrumb, key }: BreadcrumbData, index) => {
           return (
-            <>
+            <div key={key}>
               {isLast(index) ? (
-                <span key={key} className="text-gray-200">
-                  {breadcrumb}
-                </span>
+                <span className="text-gray-200">{breadcrumb}</span>
               ) : (
                 <div className="flex items-center gap-3">
                   <Link
                     to={pathname}
-                    key={key}
                     className="text-gray-100 font-bold hover:text-gray-200 transition-colors"
                   >
                     {breadcrumb}
@@ -32,7 +29,7 @@ export function Breadcrumbs() {
                   <CaretRight weight="bold" size={16} />
                 </div>
               )}
-            </>
+            </div>
           )
         },
       )}
