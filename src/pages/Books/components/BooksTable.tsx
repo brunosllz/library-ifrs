@@ -1,10 +1,12 @@
+import { useState } from 'react'
 import { BookProps, useBooksData } from '../../../hooks/useBooksData'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { Button } from '../../../components/Button'
+import * as Dialog from '@radix-ui/react-dialog'
+import { DeleteBookDialog } from './DeleteBookDialog'
 
 import { CircleNotch, Trash, WarningCircle } from 'phosphor-react'
-import { useState } from 'react'
 
 export function BooksTable() {
   const [dontHasBooks, setDontHasBooks] = useState(false)
@@ -72,11 +74,17 @@ export function BooksTable() {
                       <Button.Title>Detalhes</Button.Title>
                     </Button.Root>
 
-                    <Button.Root className="bg-red-500 py-2 px-3">
-                      <Button.Icon>
-                        <Trash />
-                      </Button.Icon>
-                    </Button.Root>
+                    <Dialog.Root>
+                      <Dialog.Trigger asChild>
+                        <Button.Root className="bg-red-500 py-2 px-3">
+                          <Button.Icon>
+                            <Trash />
+                          </Button.Icon>
+                        </Button.Root>
+                      </Dialog.Trigger>
+
+                      <DeleteBookDialog bookName={book.name} bookId={book.id} />
+                    </Dialog.Root>
                   </div>
                 </td>
               </tr>
