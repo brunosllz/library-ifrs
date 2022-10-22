@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom'
-import { useFetchBookDetails } from '../hooks/useBooksData'
+import { useFetchBookDetails } from '../../hooks/useBooksData'
 
 import * as Dialog from '@radix-ui/react-dialog'
-import { Button } from '../components/Button'
-import { NewBookForm } from './Books/components/NewBookForm'
+import { Button } from '../../components/Button'
+import { EditBookForm } from './components/EditBookForm'
 
 import { PencilSimpleLine } from 'phosphor-react'
 
@@ -25,7 +25,7 @@ export function BookDetails() {
             </Button.Root>
           </Dialog.Trigger>
 
-          <NewBookForm />
+          <EditBookForm />
         </Dialog.Root>
       </header>
 
