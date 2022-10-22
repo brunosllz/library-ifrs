@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BookProps, useBooksData } from '../../../hooks/useBooksData'
+import { BookProps, useFetchBooksData } from '../../../hooks/useBooksData'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { Button } from '../../../components/Button'
@@ -37,7 +37,7 @@ export function BooksTable() {
     return data
   }
 
-  const { books, isError, error, isLoading } = useBooksData({})
+  const { books, isError, error, isLoading } = useFetchBooksData({})
 
   const booksFilter = filterByName(books, searchBook)
 

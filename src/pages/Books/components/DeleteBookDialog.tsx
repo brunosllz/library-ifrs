@@ -1,9 +1,9 @@
+import { useState } from 'react'
 import { useDeleteBook } from '../../../hooks/useBooksData'
 import clsx from 'clsx'
 
 import * as Dialog from '@radix-ui/react-dialog'
 import { Button } from '../../../components/Button'
-import { useState } from 'react'
 
 interface DeleteDialogProps {
   bookName?: string

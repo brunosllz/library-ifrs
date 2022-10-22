@@ -10,7 +10,7 @@ export type BookProps = {
   publishedYear: string
   countPage: string
   imageUrl: string
-  // categoryId: string
+  categoryId: string
   createdAt: Date
 }
 
@@ -25,7 +25,7 @@ interface useBooksDataProps {
   onError?: (err: Error) => void
 }
 
-export function useBooksData({ onSuccess, onError }: useBooksDataProps) {
+export function useFetchBooksData({ onSuccess, onError }: useBooksDataProps) {
   const queryResponse = useQuery<BookProps[], Error>(
     ['books'],
     fetchBooksData,
@@ -62,6 +62,24 @@ export function useAddNewBook() {
       queryClient.invalidateQueries(['books'])
     },
   })
+}
+
+async function fetchBookDetails({ queryKey }: any) {
+  const response = await api.get(`/books/${queryKey[1]}`)
+
+  return response.data
+}
+
+export function useFetchBookDetails(bookId: string | undefined) {
+  const queryResponse = useQuery<BookProps, Error>(
+    ['bookDetails', bookId],
+    fetchBookDetails,
+    {
+      staleTime: 60000 * 2, // 2 minutes,
+    },
+  )
+
+  return { book: queryResponse.data ?? ({} as BookProps), ...queryResponse }
 }
 
 async function deleteBook(bookId: string) {
