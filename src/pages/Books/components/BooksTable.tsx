@@ -35,7 +35,7 @@ export function BooksTable() {
     return data
   }
 
-  const { books, isFetching, isError, error } = useBooksData({})
+  const { books, isError, error, isLoading } = useBooksData({})
 
   const booksFilter = filterByName(books, searchBook)
 
@@ -92,7 +92,7 @@ export function BooksTable() {
         </div>
       )}
 
-      {isFetching && (
+      {isLoading && (
         <div className="w-full h-56 flex flex-col gap-2 items-center justify-center">
           <CircleNotch className="animate-spin-slow" size={32} />
           <span>Os dados estão sendo carregados</span>
