@@ -1,16 +1,17 @@
 import { api } from '../lib/api'
-import { useQuery } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
+import { queryClient } from '../lib/queryClient'
 
 export type BookProps = {
-  id: string
+  id?: string
   name: string
   publishingCompany: string
   description: string
-  year: string
-  pageCount: string
+  publishedYear: string
+  countPage: string
   imageUrl: string
-  categoryId: string
-  createdAt: string
+  // categoryId: string
+  createdAt: Date
 }
 
 async function fetchBooksData() {
@@ -36,4 +37,18 @@ export function useBooksData({ onSuccess, onError }: useBooksDataProps) {
   )
 
   return { books: queryResponse.data ?? [], ...queryResponse }
+}
+
+async function addNewBook(book: BookProps) {
+  const response = await api.post('/books', book)
+
+  return response.data
+}
+
+export function useAddNewBook() {
+  return useMutation(addNewBook, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['books'])
+    },
+  })
 }

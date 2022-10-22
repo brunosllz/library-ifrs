@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { useAddNewBook } from '../../../hooks/useBooksData'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
 
@@ -41,13 +42,21 @@ export function NewBookForm() {
     handleSubmit,
     watch,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<newBookFormType>({
     resolver: zodResolver(newBookFormSchemaValidation),
   })
 
-  function handleNewBookForm(data: any) {
-    console.log(data)
+  const { mutate: addNewBook } = useAddNewBook()
+
+  function handleNewBookForm(data: newBookFormType) {
+    const newBook = Object.assign(data, {
+      createdAt: new Date(),
+    })
+
+    addNewBook(newBook)
+    reset()
   }
 
   const publishedYearValue = watch('publishedYear')

@@ -61,12 +61,12 @@ export function BooksTable() {
                   {book.publishingCompany}
                 </td>
                 <td className="p-3 border-t-4 border-gray-700 bg-gray-400 text-center">
-                  {book.createdAt}
+                  {book.createdAt.toString()}
                 </td>
                 <td className="p-3 border-t-4 border-gray-700 bg-gray-400 ">
                   <div className="flex items-center justify-center gap-2">
                     <Button.Root
-                      onClick={() => handleBookDetails(book.id)}
+                      onClick={() => handleBookDetails(book.id!)}
                       className="py-2"
                     >
                       <Button.Title>Detalhes</Button.Title>

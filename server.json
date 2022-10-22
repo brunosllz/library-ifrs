@@ -35,6 +35,26 @@
       "imageUrl": "https://covers.zlibcdn2.com/covers299/books/d4/6a/79/d46a79d3b3847d950ad287965176110c.jpg",
       "categoryId": "3",
       "createdAt": "2022-10-16T02:58:24.466Z"
+    },
+    {
+      "name": "teste",
+      "publishingCompany": "teste",
+      "imageUrl": "https://www.linkedin.com/feed/",
+      "countPage": "123",
+      "publishedYear": "2001",
+      "description": "teste",
+      "createdAt": "2022-10-22T17:58:21.121Z",
+      "id": "oppg7Tb"
+    },
+    {
+      "name": "teste",
+      "publishingCompany": "teste",
+      "imageUrl": "https://www.linkedin.com/feed/",
+      "countPage": "122",
+      "publishedYear": "2312",
+      "description": "teste",
+      "createdAt": "2022-10-22T18:13:53.903Z",
+      "id": "pQqwNEH"
     }
   ]
 }
