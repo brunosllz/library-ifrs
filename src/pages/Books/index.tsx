@@ -56,8 +56,8 @@ export function Books() {
         </form>
       </header>
 
-      <section className="px-6 mt-6">
-        <div className="bg-gray-700 p-6 rounded-md">
+      <section className="px-6 mt-6 flex flex-col justify-center items-center">
+        <div className="bg-gray-700 p-6 rounded-md w-full max-w-[1920px]">
           <h1 className="text-2xl font-bold">Gerenciar Livros</h1>
 
           <BooksTable />

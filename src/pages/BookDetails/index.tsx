@@ -6,11 +6,12 @@ import { Button } from '../../components/Button'
 import { EditBookForm } from './components/EditBookForm'
 
 import { PencilSimpleLine } from 'phosphor-react'
+import { SkeletonBookDetails } from './components/SkeletonBookDetails'
 
 export function BookDetails() {
   const { bookId } = useParams()
 
-  const { book } = useFetchBookDetails(bookId)
+  const { book, isLoading } = useFetchBookDetails(bookId)
 
   return (
     <main className="flex flex-col">
@@ -29,52 +30,56 @@ export function BookDetails() {
         </Dialog.Root>
       </header>
 
-      <section className="px-10 my-5">
-        <div className="bg-gray-700 p-6 rounded-md">
-          <div className="flex gap-10">
-            <div className="min-w-[300px] h-[464px] rounded-md overflow-hidden flex items-center justify-center">
-              <img
-                src={book.imageUrl}
-                alt={book.name}
-                className="object-cover min-w-full min-h-full"
-              />
-            </div>
-
-            <div className="flex flex-col gap-4">
-              <strong className="font-bold text-2xl">{book.name}</strong>
-
-              <div className="h-[298px] overflow-auto">
-                <p>{book.description}</p>
+      <section className="px-10 my-5 flex flex-col justify-center items-center">
+        <div className="bg-gray-700 p-6 rounded-md w-full max-w-[1920px]">
+          {isLoading ? (
+            <SkeletonBookDetails />
+          ) : (
+            <div className="flex gap-10">
+              <div className="min-w-[300px] h-[464px] rounded-md overflow-hidden flex items-center justify-center">
+                <img
+                  src={book.imageUrl}
+                  alt={book.name}
+                  className="object-cover min-w-full min-h-full"
+                />
               </div>
 
-              <div className="flex gap-8 mt-4">
-                <div className="flex flex-col gap-2">
-                  <strong>
-                    Categoria:{' '}
-                    <span className="font-normal">{book.categoryId}</span>
-                  </strong>
+              <div className="flex flex-col gap-4">
+                <strong className="font-bold text-2xl">{book.name}</strong>
 
-                  <strong>
-                    Editora:{' '}
-                    <span className="font-normal">
-                      {book.publishingCompany}
-                    </span>
-                  </strong>
+                <div className="h-[298px] overflow-auto">
+                  <p>{book.description}</p>
                 </div>
 
-                <div className="flex flex-col gap-2">
-                  <strong>
-                    Numero de paginas:{' '}
-                    <span className="font-normal">{book.countPage}</span>
-                  </strong>
-                  <strong>
-                    Ano de publicação:{' '}
-                    <span className="font-normal">{book.publishedYear}</span>
-                  </strong>
+                <div className="flex gap-8 mt-4">
+                  <div className="flex flex-col gap-2">
+                    <strong>
+                      Categoria:{' '}
+                      <span className="font-normal">{book.categoryId}</span>
+                    </strong>
+
+                    <strong>
+                      Editora:{' '}
+                      <span className="font-normal">
+                        {book.publishingCompany}
+                      </span>
+                    </strong>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <strong>
+                      Numero de paginas:{' '}
+                      <span className="font-normal">{book.countPage}</span>
+                    </strong>
+                    <strong>
+                      Ano de publicação:{' '}
+                      <span className="font-normal">{book.publishedYear}</span>
+                    </strong>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
     </main>

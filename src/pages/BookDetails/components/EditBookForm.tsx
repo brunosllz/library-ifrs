@@ -1,11 +1,8 @@
-// import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useAddNewBook, useFetchBookDetails } from '../../../hooks/useBooksData'
 import { useParams } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
-
-// import { publishedYearMask } from '../../../utils/publishedYearMask'
 
 import * as Dialog from '@radix-ui/react-dialog'
 import { Button } from '../../../components/Button'
@@ -22,7 +19,7 @@ const editBookFormSchemaValidation = z.object({
     .min(1, { message: 'Informe o nome da editora' }),
   imageUrl: z
     .string({ required_error: 'Informe a URL da imagem' })
-    .startsWith('https://www.', { message: 'Informe uma URL válida' })
+    .startsWith('https://', { message: 'Informe uma URL válida' })
     .min(1, { message: 'Informe a URL da imagem' }),
   countPage: z.string({
     required_error: 'Informe o número de páginas',
@@ -41,8 +38,6 @@ export function EditBookForm() {
   const {
     register,
     handleSubmit,
-    // watch,
-    // setValue,
     reset,
     formState: { errors },
   } = useForm<editBookFormType>({
@@ -62,14 +57,6 @@ export function EditBookForm() {
     addNewBook(newBook)
     reset()
   }
-
-  // const publishedYearValue = watch('publishedYear')
-  // const countPage = watch('countPage')
-
-  // useEffect(() => {
-  //   setValue('publishedYear', publishedYearMask(publishedYearValue))
-  //   setValue('countPage', publishedYearMask(countPage))
-  // }, [setValue, publishedYearValue, countPage])
 
   return (
     <Dialog.Portal>
@@ -91,7 +78,7 @@ export function EditBookForm() {
             <TextInput.Root className="mt-1">
               <TextInput.Input
                 id="name"
-                value={book.name}
+                defaultValue={book.name}
                 placeholder="Do mil ao milhão: Sem cortar o cafezinho"
                 {...register('name')}
               />
@@ -104,7 +91,7 @@ export function EditBookForm() {
             <TextInput.Root className="mt-1">
               <TextInput.Input
                 id="publishingCompany"
-                value={book.publishingCompany}
+                defaultValue={book.publishingCompany}
                 placeholder="HarperCollins Brasil"
                 {...register('publishingCompany')}
               />
@@ -119,7 +106,7 @@ export function EditBookForm() {
             <TextInput.Root className="mt-1">
               <TextInput.Input
                 id="imageUrl"
-                value={book.imageUrl}
+                defaultValue={book.imageUrl}
                 placeholder="https://www.image.com.br"
                 {...register('imageUrl')}
               />
@@ -133,8 +120,9 @@ export function EditBookForm() {
               <TextInput.Root className="mt-1">
                 <TextInput.Input
                   id="countPage"
-                  value={book.countPage}
+                  defaultValue={book.countPage}
                   placeholder="000"
+                  maxLength={4}
                   {...register('countPage')}
                 />
                 <TextInput.ErrorMessage
@@ -148,8 +136,9 @@ export function EditBookForm() {
               <TextInput.Root className="mt-1">
                 <TextInput.Input
                   id="publishedYear"
-                  value={book.publishedYear}
+                  defaultValue={book.publishedYear}
                   placeholder="2000"
+                  maxLength={4}
                   {...register('publishedYear')}
                 />
                 <TextInput.ErrorMessage
@@ -163,7 +152,7 @@ export function EditBookForm() {
             decrição do livro
             <textarea
               placeholder="Em seu primeiro livro, Thiago Nigro, criador da plataforma 'O Primo Rico', ensina aos leitores os três pilares para atingir a independência..."
-              value={book.description}
+              defaultValue={book.description}
               className="mt-1 resize-none h-24 bg-gray-700 rounded outline-none focus:ring-1 focus:ring-cyan-500 text-sm placeholder:text-gray-300"
               {...register('description')}
             ></textarea>
