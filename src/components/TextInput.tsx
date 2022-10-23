@@ -29,30 +29,17 @@ TextInputIcon.displayName = 'TextInput.Icon'
 
 export interface TextInputInputProps extends ComponentPropsWithoutRef<'input'> {
   children?: ReactNode
-  color?: 'cyan' | 'yellow'
   error?: boolean
   className?: string
 }
 
 const TextInputInput = forwardRef<HTMLInputElement, TextInputInputProps>(
-  (
-    {
-      children,
-      color = 'cyan',
-      error,
-      className,
-      ...props
-    }: TextInputInputProps,
-    ref,
-  ) => {
+  ({ children, error, className, ...props }: TextInputInputProps, ref) => {
     return (
       <div
         className={clsx(
-          'flex items-center gap-3 w-full py-4 px-3 h-12 bg-gray-700 rounded hover:ring-1 focus-within:ring-1',
+          'flex items-center gap-3 w-full py-4 px-3 h-12 bg-gray-700 rounded hover:ring-2 focus-within:ring-2 hover:ring-green-500 focus-within:ring-green-500',
           {
-            'hover:ring-cyan-500 focus-within:ring-cyan-500': color === 'cyan',
-            'hover:ring-yellow-500 focus-within:ring-yellow-500':
-              color === 'yellow',
             'ring-1 ring-red-500 focus-within:ring-red-500 hover:ring-red-500':
               error,
           },

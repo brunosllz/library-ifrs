@@ -28,17 +28,31 @@ interface ButtonRootProps extends ComponentPropsWithoutRef<'button'> {
   children: ReactNode
   className?: string
   asChild?: boolean
+  variant?: 'primary' | 'danger'
 }
 
 const ButtonRoot = forwardRef<HTMLButtonElement, ButtonRootProps>(
-  ({ children, className, asChild, ...props }: ButtonRootProps, ref) => {
+  (
+    {
+      children,
+      className,
+      asChild,
+      variant = 'primary',
+      ...props
+    }: ButtonRootProps,
+    ref,
+  ) => {
     const Comp = asChild ? Slot : 'button'
 
     return (
       <Comp
         ref={ref}
         className={clsx(
-          'flex gap-2 items-center justify-center py-3 bg-violet-900 px-4 rounded-md',
+          'flex gap-2 items-center justify-center py-3  transition-colors px-4 rounded-md disabled:opacity-60 disabled:cursor-not-allowed',
+          {
+            'bg-green-700  hover:bg-green-500': variant === 'primary',
+            'bg-red-700  hover:bg-red-500': variant === 'danger',
+          },
           className,
         )}
         {...props}

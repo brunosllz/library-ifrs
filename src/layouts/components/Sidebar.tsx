@@ -21,7 +21,7 @@ export function Sidebar() {
               return clsx(
                 'flex items-center px-4 py-2 gap-2 hover:bg-gray-700 transition-colors',
                 {
-                  'bg-gray-700 border-r-8 border-violet-900': isActive,
+                  'bg-gray-700 border-r-8 border-green-500': isActive,
                 },
               )
             }}
@@ -49,7 +49,7 @@ export function Sidebar() {
                   return clsx(
                     'flex items-center px-4 py-2 gap-2 hover:bg-gray-700 transition-colors pl-8',
                     {
-                      'bg-gray-700 border-r-8 border-violet-900': isActive,
+                      'bg-gray-700 border-r-8 border-green-500': isActive,
                     },
                   )
                 }}

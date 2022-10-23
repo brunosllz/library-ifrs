@@ -21,12 +21,14 @@ const newBookFormSchemaValidation = z.object({
     .min(1, { message: 'Informe o nome da editora' }),
   imageUrl: z
     .string({ required_error: 'Informe a URL da imagem' })
-    .startsWith('https://www.', { message: 'Informe uma URL válida' })
-    .min(1, { message: 'Informe a URL da imagem' }),
-  countPage: z.string({
-    required_error: 'Informe o número de páginas',
-    invalid_type_error: 'Informe o número de páginas',
-  }),
+    .min(1, { message: 'Informe a URL da imagem' })
+    .startsWith('https://', { message: 'Informe uma URL válida' }),
+  countPage: z
+    .string({
+      required_error: 'Informe o número de páginas',
+      invalid_type_error: 'Informe o número de páginas',
+    })
+    .min(1, 'Informe o número de páginas'),
   publishedYear: z
     .string({ required_error: 'Infome o ano de publicação' })
     .min(4, 'Infome o ano de publicação')
@@ -48,7 +50,7 @@ export function NewBookForm() {
     resolver: zodResolver(newBookFormSchemaValidation),
   })
 
-  const { mutate: addNewBook } = useAddNewBook()
+  const { mutate: addNewBook, isLoading } = useAddNewBook()
 
   function handleNewBookForm(data: newBookFormType) {
     const newBook = Object.assign(data, {
@@ -84,10 +86,11 @@ export function NewBookForm() {
         >
           <label htmlFor="name">
             Nome do livro
-            <TextInput.Root className="mt-1">
+            <TextInput.Root className="mt-2">
               <TextInput.Input
                 id="name"
                 placeholder="Do mil ao milhão: Sem cortar o cafezinho"
+                error={!!errors.name}
                 {...register('name')}
               />
             </TextInput.Root>
@@ -96,10 +99,11 @@ export function NewBookForm() {
 
           <label htmlFor="publishingCompany">
             Editora
-            <TextInput.Root className="mt-1">
+            <TextInput.Root className="mt-2">
               <TextInput.Input
                 id="publishingCompany"
                 placeholder="HarperCollins Brasil"
+                error={!!errors.publishingCompany}
                 {...register('publishingCompany')}
               />
               <TextInput.ErrorMessage
@@ -110,10 +114,11 @@ export function NewBookForm() {
 
           <label htmlFor="imageUrl">
             Imagem de capa
-            <TextInput.Root className="mt-1">
+            <TextInput.Root className="mt-2">
               <TextInput.Input
                 id="imageUrl"
                 placeholder="https://www.image.com.br"
+                error={!!errors.imageUrl}
                 {...register('imageUrl')}
               />
               <TextInput.ErrorMessage errorMessage={errors.imageUrl?.message} />
@@ -123,10 +128,11 @@ export function NewBookForm() {
           <div className="flex gap-2">
             <label htmlFor="countPage" className="w-full">
               Número de páginas
-              <TextInput.Root className="mt-1">
+              <TextInput.Root className="mt-2">
                 <TextInput.Input
                   id="countPage"
                   placeholder="000"
+                  error={!!errors.countPage}
                   {...register('countPage')}
                 />
                 <TextInput.ErrorMessage
@@ -137,10 +143,11 @@ export function NewBookForm() {
 
             <label htmlFor="publishedYear" className="w-full">
               Ano de publicação
-              <TextInput.Root className="mt-1">
+              <TextInput.Root className="mt-2">
                 <TextInput.Input
                   id="publishedYear"
                   placeholder="2000"
+                  error={!!errors.publishedYear}
                   {...register('publishedYear')}
                 />
                 <TextInput.ErrorMessage
@@ -153,8 +160,9 @@ export function NewBookForm() {
           <label htmlFor="description" className="flex flex-col gap-2">
             decrição do livro
             <textarea
+              id="description"
               placeholder="Em seu primeiro livro, Thiago Nigro, criador da plataforma 'O Primo Rico', ensina aos leitores os três pilares para atingir a independência..."
-              className="mt-1 resize-none h-24 bg-gray-700 rounded outline-none focus:ring-1 focus:ring-cyan-500 text-sm placeholder:text-gray-300"
+              className="mt-1 resize-none h-24 bg-gray-700 rounded outline-none border-0 focus:ring-2 focus:ring-green-500 text-sm placeholder:text-gray-300"
               {...register('description')}
             ></textarea>
             {!!errors.description && (
@@ -164,7 +172,7 @@ export function NewBookForm() {
             )}
           </label>
 
-          <Button.Root className="mt-3">
+          <Button.Root disabled={isLoading} className="mt-3">
             <Button.Title>Adicionar</Button.Title>
           </Button.Root>
         </form>

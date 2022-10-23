@@ -76,7 +76,7 @@ export function BooksTable() {
 
                     <Dialog.Root>
                       <Dialog.Trigger asChild>
-                        <Button.Root className="bg-red-500 py-2 px-3">
+                        <Button.Root className="py-2 px-3" variant="danger">
                           <Button.Icon>
                             <Trash />
                           </Button.Icon>

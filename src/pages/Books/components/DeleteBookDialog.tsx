@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useDeleteBook } from '../../../hooks/useBooksData'
-import clsx from 'clsx'
 
 import * as Dialog from '@radix-ui/react-dialog'
 import { Button } from '../../../components/Button'
@@ -34,7 +33,7 @@ export function DeleteBookDialog({ bookName, bookId }: DeleteDialogProps) {
 
         <div className="flex gap-2 mt-4 justify-end">
           <Dialog.Close asChild>
-            <Button.Root>
+            <Button.Root disabled={isDeleting}>
               <Button.Title>Cancelar</Button.Title>
             </Button.Root>
           </Dialog.Close>
@@ -42,9 +41,7 @@ export function DeleteBookDialog({ bookName, bookId }: DeleteDialogProps) {
           <Button.Root
             onClick={() => handleDeleteBook(bookId)}
             disabled={isDeleting}
-            className={clsx('bg-red-500', {
-              'cursor-not-allowed opacity-60': isDeleting,
-            })}
+            variant="danger"
           >
             <Button.Title>Deletar</Button.Title>
           </Button.Root>
