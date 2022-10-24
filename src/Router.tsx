@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import { BreadcrumbsRoute } from 'use-react-router-breadcrumbs'
 
 import { DefaultLayout } from './layouts/DefaultLayout'
+import { BookCategories } from './pages/BookCategories'
 
 import { BookDetails } from './pages/BookDetails'
 import { Books } from './pages/Books'
@@ -31,6 +32,11 @@ export const routes: BreadcrumbsRoute[] = [
             element: <BookDetails />,
           },
         ],
+      },
+      {
+        path: 'books/categories',
+        element: <BookCategories />,
+        breadcrumb: 'Categorias',
       },
     ],
   },

@@ -27,7 +27,8 @@ const editBookFormSchemaValidation = z.object({
   }),
   publishedYear: z
     .string({ required_error: 'Infome o ano de publicação' })
-    .min(4, 'Infome o ano de publicação')
+    .min(1, 'Infome o ano de publicação')
+    .max(4, 'Informe um ano válido')
     .regex(/^(1|2)\d{3}/, { message: 'Informe um ano válido' }),
   description: z.string().min(1, { message: 'Informe uma descrição do livro' }),
 })

@@ -45,7 +45,9 @@ export function Sidebar() {
             <nav aria-label="Books Nav" className="flex flex-col">
               <NavLink
                 to="books"
+                end
                 className={({ isActive }) => {
+                  console.log('books: ', isActive)
                   return clsx(
                     'flex items-center px-4 py-2 gap-2 hover:bg-gray-700 transition-colors pl-8',
                     {
@@ -55,6 +57,25 @@ export function Sidebar() {
                 }}
               >
                 <span className="text-sm font-medium">Gerenciar livros</span>
+              </NavLink>
+            </nav>
+
+            <nav aria-label="Books Nav" className="flex flex-col">
+              <NavLink
+                to="books/categories"
+                className={({ isActive }) => {
+                  console.log('categories: ', isActive)
+                  return clsx(
+                    'flex items-center px-4 py-2 gap-2 hover:bg-gray-700 transition-colors pl-8',
+                    {
+                      'bg-gray-700 border-r-8 border-green-500': isActive,
+                    },
+                  )
+                }}
+              >
+                <span className="text-sm font-medium">
+                  Gerenciar categorias
+                </span>
               </NavLink>
             </nav>
           </details>
