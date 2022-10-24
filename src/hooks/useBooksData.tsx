@@ -39,6 +39,24 @@ export function useFetchBooksData({ onSuccess, onError }: useBooksDataProps) {
   return { books: queryResponse.data ?? [], ...queryResponse }
 }
 
+async function fetchBookDetails({ queryKey }: any) {
+  const response = await api.get(`/books/${queryKey[1]}`)
+
+  return response.data
+}
+
+export function useFetchBookDetails(bookId: string | undefined) {
+  const queryResponse = useQuery<BookProps, Error>(
+    ['bookDetails', bookId],
+    fetchBookDetails,
+    {
+      staleTime: 60000 * 2, // 2 minutes,
+    },
+  )
+
+  return { book: queryResponse.data ?? ({} as BookProps), ...queryResponse }
+}
+
 interface addNewBookProps {
   name: string
   publishingCompany: string
@@ -64,22 +82,31 @@ export function useAddNewBook() {
   })
 }
 
-async function fetchBookDetails({ queryKey }: any) {
-  const response = await api.get(`/books/${queryKey[1]}`)
+interface EditBoookProps {
+  bookId: string | undefined
+  editedBook: {
+    name: string
+    publishingCompany: string
+    imageUrl: string
+    countPage: string
+    publishedYear: string
+    description: string
+  }
+}
+
+async function editBook({ bookId, editedBook }: EditBoookProps) {
+  const response = await api.put(`/books/${bookId}`, editedBook)
 
   return response.data
 }
 
-export function useFetchBookDetails(bookId: string | undefined) {
-  const queryResponse = useQuery<BookProps, Error>(
-    ['bookDetails', bookId],
-    fetchBookDetails,
-    {
-      staleTime: 60000 * 2, // 2 minutes,
+export function useEditBook(bookId: string | undefined) {
+  return useMutation(editBook, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['books'])
+      queryClient.invalidateQueries(['bookDetails', bookId])
     },
-  )
-
-  return { book: queryResponse.data ?? ({} as BookProps), ...queryResponse }
+  })
 }
 
 async function deleteBook(bookId: string) {

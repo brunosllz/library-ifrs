@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form'
-import { useAddNewBook, useFetchBookDetails } from '../../../hooks/useBooksData'
+import { useEditBook, useFetchBookDetails } from '../../../hooks/useBooksData'
 import { useParams } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
@@ -38,7 +38,6 @@ export function EditBookForm() {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<editBookFormType>({
     resolver: zodResolver(editBookFormSchemaValidation),
@@ -47,15 +46,15 @@ export function EditBookForm() {
   const { bookId } = useParams()
 
   const { book } = useFetchBookDetails(bookId)
-  const { mutate: addNewBook } = useAddNewBook()
+  const { mutate: editBook, isLoading } = useEditBook(bookId)
 
   function handleNewBookForm(data: editBookFormType) {
-    const newBook = Object.assign(data, {
-      createdAt: new Date(),
+    const editedBook = Object.assign(data, {
+      createdAt: book.createdAt,
+      updatedAt: new Date(),
     })
 
-    addNewBook(newBook)
-    reset()
+    editBook({ bookId, editedBook })
   }
 
   return (
@@ -80,6 +79,7 @@ export function EditBookForm() {
                 id="name"
                 defaultValue={book.name}
                 placeholder="Do mil ao milhão: Sem cortar o cafezinho"
+                disabled={isLoading}
                 {...register('name')}
               />
             </TextInput.Root>
@@ -93,6 +93,7 @@ export function EditBookForm() {
                 id="publishingCompany"
                 defaultValue={book.publishingCompany}
                 placeholder="HarperCollins Brasil"
+                disabled={isLoading}
                 {...register('publishingCompany')}
               />
               <TextInput.ErrorMessage
@@ -108,6 +109,7 @@ export function EditBookForm() {
                 id="imageUrl"
                 defaultValue={book.imageUrl}
                 placeholder="https://www.image.com.br"
+                disabled={isLoading}
                 {...register('imageUrl')}
               />
               <TextInput.ErrorMessage errorMessage={errors.imageUrl?.message} />
@@ -123,6 +125,7 @@ export function EditBookForm() {
                   defaultValue={book.countPage}
                   placeholder="000"
                   maxLength={4}
+                  disabled={isLoading}
                   {...register('countPage')}
                 />
                 <TextInput.ErrorMessage
@@ -139,6 +142,7 @@ export function EditBookForm() {
                   defaultValue={book.publishedYear}
                   placeholder="2000"
                   maxLength={4}
+                  disabled={isLoading}
                   {...register('publishedYear')}
                 />
                 <TextInput.ErrorMessage
@@ -154,6 +158,7 @@ export function EditBookForm() {
               placeholder="Em seu primeiro livro, Thiago Nigro, criador da plataforma 'O Primo Rico', ensina aos leitores os três pilares para atingir a independência..."
               defaultValue={book.description}
               className="mt-1 resize-none h-24 bg-gray-700 rounded outline-none focus:ring-1 focus:ring-cyan-500 text-sm placeholder:text-gray-300"
+              disabled={isLoading}
               {...register('description')}
             ></textarea>
             {!!errors.description && (
@@ -163,7 +168,7 @@ export function EditBookForm() {
             )}
           </label>
 
-          <Button.Root className="mt-3">
+          <Button.Root disabled={isLoading} className="mt-3">
             <Button.Title>Editar</Button.Title>
           </Button.Root>
         </form>
