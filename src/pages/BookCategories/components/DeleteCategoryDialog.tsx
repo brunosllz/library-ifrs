@@ -35,6 +35,12 @@ export function DeleteCategoryDialog({
         </div>
 
         <div className="flex gap-2 mt-4 justify-end">
+          <Dialog.Close asChild>
+            <Button.Root disabled={isDeleting}>
+              <Button.Title>Cancelar</Button.Title>
+            </Button.Root>
+          </Dialog.Close>
+
           <Button.Root
             onClick={() => handleDeleteBook(categoryId)}
             disabled={isDeleting}
@@ -42,12 +48,6 @@ export function DeleteCategoryDialog({
           >
             <Button.Title>Deletar</Button.Title>
           </Button.Root>
-
-          <Dialog.Close asChild>
-            <Button.Root disabled={isDeleting}>
-              <Button.Title>Cancelar</Button.Title>
-            </Button.Root>
-          </Dialog.Close>
         </div>
       </Dialog.Content>
     </Dialog.Portal>

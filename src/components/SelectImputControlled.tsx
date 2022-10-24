@@ -25,20 +25,22 @@ export function SelectInputControlled<T extends FieldValues = FieldValues>({
     field: { value, onChange, ref },
     fieldState: { error },
   } = useController({ name, control })
+
+  console.log(value)
   return (
     <Listbox value={value} onChange={onChange}>
       <div className="relative mt-1">
         <Listbox.Button
           ref={ref}
           className={clsx(
-            'relative w-full cursor-default rinline-flex justify-between bg-gray-700 py-3 px-4 rounded text-sm',
+            'relative w-full cursor-pointer rinline-flex justify-between bg-gray-700 py-3 px-4 rounded text-sm',
             {
               'ring-1 ring-red-500': error,
             },
           )}
         >
           {value ? (
-            <span className="block truncate">{value.title}</span>
+            <span className="block truncate">{value.name}</span>
           ) : (
             <span className="block truncate text-zinc-500 text-left">
               Selecione o game que deseja jogar
@@ -54,15 +56,14 @@ export function SelectInputControlled<T extends FieldValues = FieldValues>({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-700 py-1 px-2 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+          <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-800 py-1 px-2 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
             {dataValue.map((item) => (
               <Listbox.Option
                 key={item.id}
                 className={({ active }) =>
-                  `relative cursor-default select-none py-2 pl-10 pr-4  transition-colors ${
-                    active
-                      ? 'bg-zinc-500 text-zinc-100 rounded-md'
-                      : 'text-white hover:bg-zinc-500 '
+                  `relative cursor-pointer select-none py-2 pl-10 pr-4 text-gray-100 transition-colors  ${
+                    active && 'bg-green-500 rounded-md'
+                    // : 'text-white hover:bg-green-500 '
                   }`
                 }
                 value={item}
@@ -76,11 +77,11 @@ export function SelectInputControlled<T extends FieldValues = FieldValues>({
                     >
                       {item.name}
                     </span>
-                    {selected ? (
-                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-emerald-500">
+                    {selected && (
+                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-100">
                         <Check className="h-5 w-5" aria-hidden="true" />
                       </span>
-                    ) : null}
+                    )}
                   </>
                 )}
               </Listbox.Option>
