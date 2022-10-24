@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { BookProps, useFetchBooksData } from '../../../hooks/useBooksData'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import { format } from 'date-fns'
 
 import { Button } from '../../../components/Button'
 import * as Dialog from '@radix-ui/react-dialog'
@@ -63,7 +64,7 @@ export function BooksTable() {
                   {book.publishingCompany}
                 </td>
                 <td className="p-3 border-t-4 border-gray-700 bg-gray-400 text-center">
-                  {book.createdAt.toString()}
+                  {format(new Date(book.createdAt), 'dd/MM/yyyy')}
                 </td>
                 <td className="p-3 border-t-4 border-gray-700 bg-gray-400 ">
                   <div className="flex items-center justify-center gap-2">

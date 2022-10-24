@@ -1,6 +1,7 @@
 import { api } from '../lib/api'
 import { useMutation, useQuery } from 'react-query'
 import { queryClient } from '../lib/queryClient'
+import { toast } from 'react-toastify'
 
 export type BookProps = {
   id: string
@@ -78,6 +79,10 @@ export function useAddNewBook() {
   return useMutation(addNewBook, {
     onSuccess: () => {
       queryClient.invalidateQueries(['books'])
+      toast.success('Livro adicionado com sucesso', { autoClose: 1000 })
+    },
+    onError: () => {
+      toast.error('Não foi possível adicionar o livro', { autoClose: 1000 })
     },
   })
 }
@@ -91,6 +96,8 @@ interface EditBoookProps {
     countPage: string
     publishedYear: string
     description: string
+    createdAt: Date
+    updatedAt: Date
   }
 }
 
@@ -105,6 +112,10 @@ export function useEditBook(bookId: string | undefined) {
     onSuccess: () => {
       queryClient.invalidateQueries(['books'])
       queryClient.invalidateQueries(['bookDetails', bookId])
+      toast.success('Livro editado com sucesso', { autoClose: 1000 })
+    },
+    onError: () => {
+      toast.error('Não foi possível editar o livro', { autoClose: 1000 })
     },
   })
 }
@@ -119,6 +130,10 @@ export function useDeleteBook() {
   return useMutation(deleteBook, {
     onSuccess: () => {
       queryClient.invalidateQueries(['books'])
+      toast.success('Livro deletado com sucesso', { autoClose: 1000 })
+    },
+    onError: () => {
+      toast.error('Não foi possível deletar o livro', { autoClose: 1000 })
     },
   })
 }

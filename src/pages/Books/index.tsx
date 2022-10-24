@@ -42,7 +42,7 @@ export function Books() {
           <NewBookForm />
         </Dialog.Root>
 
-        <form className="w-80">
+        <div className="w-80">
           <TextInput.Root className="border border-gray-400">
             <TextInput.Input
               placeholder="Procure pelo nome do livro"
@@ -53,7 +53,7 @@ export function Books() {
               </TextInput.Icon>
             </TextInput.Input>
           </TextInput.Root>
-        </form>
+        </div>
       </header>
 
       <section className="px-6 mt-6 flex flex-col justify-center items-center">
