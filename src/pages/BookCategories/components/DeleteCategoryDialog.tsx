@@ -1,20 +1,23 @@
 import { useState } from 'react'
-import { useDeleteBook } from '../../../hooks/useBooksData'
+import { useDeleteCategory } from '../../../hooks/useBooksData'
 
 import * as Dialog from '@radix-ui/react-dialog'
 import { Button } from '../../../components/Button'
 
-interface DeleteBookDialogProps {
-  bookName: string
-  bookId: string
+interface DeleteCategoryDialogProps {
+  categoryName: string
+  categoryId: string
 }
 
-export function DeleteBookDialog({ bookName, bookId }: DeleteBookDialogProps) {
+export function DeleteCategoryDialog({
+  categoryName,
+  categoryId,
+}: DeleteCategoryDialogProps) {
   const [isDeleting, setIsDeleting] = useState(false)
-  const { mutate: deleteBook } = useDeleteBook()
+  const { mutate: deleteCategory } = useDeleteCategory()
 
-  function handleDeleteBook(bookId: string) {
-    deleteBook(bookId)
+  function handleDeleteBook(categoryId: string) {
+    deleteCategory(categoryId)
     setIsDeleting(true)
   }
 
@@ -27,8 +30,8 @@ export function DeleteBookDialog({ bookName, bookId }: DeleteBookDialogProps) {
         </Dialog.Title>
 
         <div>
-          Tem certeza que deseja deletar o livro{' '}
-          <span className="font-bold">{bookName}</span>
+          Tem certeza que deseja deletar a categoria{' '}
+          <span className="font-bold">{categoryName}</span>
         </div>
 
         <div className="flex gap-2 mt-4 justify-end">
@@ -39,7 +42,7 @@ export function DeleteBookDialog({ bookName, bookId }: DeleteBookDialogProps) {
           </Dialog.Close>
 
           <Button.Root
-            onClick={() => handleDeleteBook(bookId)}
+            onClick={() => handleDeleteBook(categoryId)}
             disabled={isDeleting}
             variant="danger"
           >

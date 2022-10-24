@@ -58,7 +58,7 @@ export function Books() {
 
       <section className="px-6 mt-6 flex flex-col justify-center items-center">
         <div className="bg-gray-700 p-6 rounded-md w-full max-w-[1920px]">
-          <h1 className="text-2xl font-bold">Gerenciar Livros</h1>
+          <h1 className="text-2xl font-bold">Gerenciar livros</h1>
 
           <BooksTable />
         </div>

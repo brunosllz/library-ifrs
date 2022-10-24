@@ -1,6 +1,9 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useAddNewBook } from '../../../hooks/useBooksData'
+import {
+  useAddNewBook,
+  useFetchCategoriesData,
+} from '../../../hooks/useBooksData'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
 
@@ -11,6 +14,7 @@ import { Button } from '../../../components/Button'
 import { TextInput } from '../../../components/TextInput'
 
 import { X } from 'phosphor-react'
+import { SelectInputControlled } from '../../../components/SelectImputControlled'
 
 const newBookFormSchemaValidation = z.object({
   name: z
@@ -34,6 +38,7 @@ const newBookFormSchemaValidation = z.object({
     .min(4, 'Infome o ano de publicação')
     .regex(/^(1|2)\d{3}/, { message: 'Informe um ano válido' }),
   description: z.string().min(1, { message: 'Informe uma descrição do livro' }),
+  category: z.string(),
 })
 
 type newBookFormType = z.infer<typeof newBookFormSchemaValidation>
@@ -45,12 +50,14 @@ export function NewBookForm() {
     watch,
     setValue,
     reset,
+    control,
     formState: { errors },
   } = useForm<newBookFormType>({
     resolver: zodResolver(newBookFormSchemaValidation),
   })
 
   const { mutate: addNewBook, isLoading } = useAddNewBook()
+  const { categories } = useFetchCategoriesData({})
 
   function handleNewBookForm(data: newBookFormType) {
     const newBook = Object.assign(data, {
@@ -84,6 +91,11 @@ export function NewBookForm() {
           onSubmit={handleSubmit(handleNewBookForm)}
           className="flex flex-col gap-3"
         >
+          <SelectInputControlled
+            control={control}
+            name="category"
+            dataValue={categories}
+          />
           <label htmlFor="name">
             Nome do livro
             <TextInput.Root className="mt-2">

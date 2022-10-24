@@ -137,3 +137,76 @@ export function useDeleteBook() {
     },
   })
 }
+
+// Categories
+
+interface CategoryProps {
+  id: string
+  name: string
+  createdAt: Date
+}
+
+async function fetchCategoriesData() {
+  const response = await api.get('/categories')
+
+  return response.data
+}
+
+interface useCategoriesDataProps {
+  onSuccess?: (data: CategoryProps[]) => void
+  onError?: (err: Error) => void
+}
+
+export function useFetchCategoriesData({
+  onSuccess,
+  onError,
+}: useCategoriesDataProps) {
+  const queryResponse = useQuery<CategoryProps[], Error>(
+    ['categories'],
+    fetchCategoriesData,
+    {
+      onSuccess,
+      onError,
+      retry: 2,
+    },
+  )
+
+  return { categories: queryResponse.data ?? [], ...queryResponse }
+}
+
+interface AddNewCategoryProps {
+  name: string
+}
+
+async function addNewCategory(category: AddNewCategoryProps) {
+  const response = await api.post('/categories', category)
+
+  return response.data
+}
+
+export function useAddNewCategory() {
+  return useMutation(addNewCategory, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['categories'])
+      toast.success('Categoria adiciona com sucesso', { autoClose: 1000 })
+    },
+  })
+}
+
+async function deleteCategory(categoryId: string) {
+  const response = await api.delete(`/categories/${categoryId}`)
+
+  return response.data
+}
+
+export function useDeleteCategory() {
+  return useMutation(deleteCategory, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['categories'])
+      toast.success('Categoria deletada com sucesso', { autoClose: 1000 })
+    },
+    onError: () => {
+      toast.error('Não foi possível deletar a Categoria', { autoClose: 1000 })
+    },
+  })
+}

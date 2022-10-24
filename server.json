@@ -2,15 +2,18 @@
   "categories": [
     {
       "id": "1",
-      "name": "Business & Economics"
+      "name": "Business & Economics",
+      "createdAt": "2022-10-16T02:58:24.466Z"
     },
     {
       "id": "2",
-      "name": "Science Fiction & Fantasy - Fantasy Fiction"
+      "name": "Science Fiction & Fantasy - Fantasy Fiction",
+      "createdAt": "2022-10-16T02:58:24.466Z"
     },
     {
       "id": "3",
-      "name": "Self-Help, Relationships & Lifestyle - Self Help"
+      "name": "Self-Help, Relationships & Lifestyle - Self Help",
+      "createdAt": "2022-10-16T02:58:24.466Z"
     }
   ],
   "books": [
