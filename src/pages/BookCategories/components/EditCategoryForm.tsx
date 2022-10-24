@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form'
-import { useAddNewCategory } from '../../../hooks/useBooksData'
+import { useEditCategory } from '../../../hooks/useBooksData'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
 
@@ -9,6 +9,16 @@ import { TextInput } from '../../../components/TextInput'
 
 import { X } from 'phosphor-react'
 
+interface CategoryEdit {
+  id: string
+  name: string
+  createdAt: Date
+}
+
+interface EditCategoryFormProps {
+  category: CategoryEdit
+}
+
 const editCategoryFormSchemaValidation = z.object({
   name: z
     .string({ required_error: 'Informe o nome da categoria' })
@@ -17,7 +27,7 @@ const editCategoryFormSchemaValidation = z.object({
 
 type editCategoryFormType = z.infer<typeof editCategoryFormSchemaValidation>
 
-export function EditCategoryForm() {
+export function EditCategoryForm({ category }: EditCategoryFormProps) {
   const {
     register,
     handleSubmit,
@@ -27,13 +37,15 @@ export function EditCategoryForm() {
     resolver: zodResolver(editCategoryFormSchemaValidation),
   })
 
-  const { mutate: editCategory, isLoading } = useAddNewCategory()
+  const { mutate: editCategory, isLoading } = useEditCategory()
 
   function handleNewBookForm(data: editCategoryFormType) {
-    const newBook = Object.assign(data, {
-      createdAt: new Date(),
+    const editedCategory = Object.assign(data, {
+      createdAt: category.createdAt,
+      updatedAt: new Date(),
     })
 
+    editCategory({ categoryId: category.id, editedCategory })
     reset()
   }
 
@@ -57,6 +69,7 @@ export function EditCategoryForm() {
             <TextInput.Root className="mt-2">
               <TextInput.Input
                 id="name"
+                defaultValue={category.name}
                 placeholder="Business & Economics"
                 error={!!errors.name}
                 {...register('name')}
@@ -66,7 +79,7 @@ export function EditCategoryForm() {
           </label>
 
           <Button.Root disabled={isLoading} className="mt-3">
-            <Button.Title>Adicionar</Button.Title>
+            <Button.Title>Editar</Button.Title>
           </Button.Root>
         </form>
       </Dialog.Content>

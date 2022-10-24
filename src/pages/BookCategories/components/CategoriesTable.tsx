@@ -6,6 +6,7 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { DeleteCategoryDialog } from './DeleteCategoryDialog'
 
 import { CircleNotch, PencilSimpleLine, Trash } from 'phosphor-react'
+import { EditCategoryForm } from './EditCategoryForm'
 
 export function CategoriesTable() {
   const { categories, isLoading, isError, error } = useFetchCategoriesData({})
@@ -40,6 +41,8 @@ export function CategoriesTable() {
                           </Button.Icon>
                         </Button.Root>
                       </Dialog.Trigger>
+
+                      <EditCategoryForm category={category} />
                     </Dialog.Root>
 
                     <Dialog.Root>

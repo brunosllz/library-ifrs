@@ -193,6 +193,33 @@ export function useAddNewCategory() {
   })
 }
 
+interface EditCategoryProps {
+  categoryId: string | undefined
+  editedCategory: {
+    name: string
+    createdAt: Date
+    updatedAt: Date
+  }
+}
+
+async function editCategory({ categoryId, editedCategory }: EditCategoryProps) {
+  const response = await api.put(`/categories/${categoryId}`, editedCategory)
+
+  return response.data
+}
+
+export function useEditCategory() {
+  return useMutation(editCategory, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['categories'])
+      toast.success('Categoria editada com sucesso', { autoClose: 1000 })
+    },
+    onError: () => {
+      toast.error('Não foi possível editar a categoria', { autoClose: 1000 })
+    },
+  })
+}
+
 async function deleteCategory(categoryId: string) {
   const response = await api.delete(`/categories/${categoryId}`)
 

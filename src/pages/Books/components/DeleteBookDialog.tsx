@@ -32,12 +32,6 @@ export function DeleteBookDialog({ bookName, bookId }: DeleteBookDialogProps) {
         </div>
 
         <div className="flex gap-2 mt-4 justify-end">
-          <Dialog.Close asChild>
-            <Button.Root disabled={isDeleting}>
-              <Button.Title>Cancelar</Button.Title>
-            </Button.Root>
-          </Dialog.Close>
-
           <Button.Root
             onClick={() => handleDeleteBook(bookId)}
             disabled={isDeleting}
@@ -45,6 +39,12 @@ export function DeleteBookDialog({ bookName, bookId }: DeleteBookDialogProps) {
           >
             <Button.Title>Deletar</Button.Title>
           </Button.Root>
+
+          <Dialog.Close asChild>
+            <Button.Root disabled={isDeleting}>
+              <Button.Title>Cancelar</Button.Title>
+            </Button.Root>
+          </Dialog.Close>
         </div>
       </Dialog.Content>
     </Dialog.Portal>
