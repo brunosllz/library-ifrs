@@ -59,9 +59,7 @@ export function NewBookForm() {
   } = useForm<newBookFormType>({
     resolver: zodResolver(newBookFormSchemaValidation),
     defaultValues: {
-      category: {
-        name: '',
-      },
+      category: undefined,
     },
   })
 
@@ -74,7 +72,6 @@ export function NewBookForm() {
       createdAt: new Date(),
     })
 
-    console.log(newBook)
     addNewBook(newBook)
     reset()
   }

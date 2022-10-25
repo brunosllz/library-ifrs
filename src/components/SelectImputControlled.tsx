@@ -38,12 +38,10 @@ export function SelectInputControlled<T extends FieldValues = FieldValues>({
             },
           )}
         >
-          {value.name ? (
+          {value ? (
             <span className="block truncate">{value.name}</span>
           ) : (
-            <span className="block truncate text-zinc-500">
-              Selecione a categoria
-            </span>
+            <span className="block truncate">Selecione uma categoria</span>
           )}
           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
             <CaretDown className="h-5 w-5 text-gray-200" aria-hidden="true" />
@@ -59,20 +57,17 @@ export function SelectInputControlled<T extends FieldValues = FieldValues>({
             {dataValue.map((item) => (
               <Listbox.Option
                 key={item.id}
-                className={({ active }) =>
-                  `relative cursor-pointer select-none py-2 pl-10 pr-4 text-gray-100 transition-colors  ${
-                    active && 'bg-green-500 rounded-md'
-                    // : 'text-white hover:bg-green-500 '
-                  }`
-                }
                 value={item}
+                className={({ active }) =>
+                  `relative cursor-pointer select-none py-2 pl-10 pr-4 text-gray-100 transition-colors  
+                  ${active && 'bg-green-500 rounded-md'}`
+                }
               >
                 {({ selected }) => (
                   <>
                     <span
-                      className={`block truncate ${
-                        selected ? 'font-medium' : 'font-normal'
-                      }`}
+                      className={`block truncate 
+                      ${selected ? 'font-medium' : 'font-normal'}`}
                     >
                       {item.name}
                     </span>

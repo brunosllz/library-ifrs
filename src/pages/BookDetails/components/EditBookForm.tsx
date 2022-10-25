@@ -1,5 +1,9 @@
 import { useForm } from 'react-hook-form'
-import { useEditBook, useFetchBookDetails } from '../../../hooks/useBooksData'
+import {
+  useEditBook,
+  useFetchBookDetails,
+  useFetchCategoriesData,
+} from '../../../hooks/useBooksData'
 import { useParams } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
@@ -7,8 +11,10 @@ import z from 'zod'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Button } from '../../../components/Button'
 import { TextInput } from '../../../components/TextInput'
+import { SelectInputControlled } from '../../../components/SelectImputControlled'
 
 import { X } from 'phosphor-react'
+import { useEffect } from 'react'
 
 const editBookFormSchemaValidation = z.object({
   name: z
@@ -31,6 +37,10 @@ const editBookFormSchemaValidation = z.object({
     .max(4, 'Informe um ano válido')
     .regex(/^(1|2)\d{3}/, { message: 'Informe um ano válido' }),
   description: z.string().min(1, { message: 'Informe uma descrição do livro' }),
+  categoryId: z.object({
+    id: z.string().min(1),
+    name: z.string().min(1),
+  }),
 })
 
 type editBookFormType = z.infer<typeof editBookFormSchemaValidation>
@@ -39,24 +49,47 @@ export function EditBookForm() {
   const {
     register,
     handleSubmit,
+    control,
+    setValue,
     formState: { errors },
   } = useForm<editBookFormType>({
     resolver: zodResolver(editBookFormSchemaValidation),
+    // defaultValues: {
+    //   category: {
+    //     name: '',
+    //   },
+    // },
   })
 
   const { bookId } = useParams()
 
   const { book } = useFetchBookDetails(bookId)
+  const { categories } = useFetchCategoriesData({})
   const { mutate: editBook, isLoading } = useEditBook(bookId)
 
   function handleNewBookForm(data: editBookFormType) {
     const editedBook = Object.assign(data, {
       createdAt: book.createdAt,
       updatedAt: new Date(),
+      categoryId: data.categoryId.id,
     })
 
     editBook({ bookId, editedBook })
   }
+
+  const searchSelectedCategory = categories.find(
+    (category) => category.id === book.categoryId,
+  )
+
+  useEffect(() => {
+    const searchSelectedCategory = categories.find(
+      (category) => category.id === book.categoryId,
+    )
+
+    if (searchSelectedCategory) {
+      setValue('categoryId', searchSelectedCategory)
+    }
+  }, [setValue, searchSelectedCategory, book.categoryId, categories])
 
   return (
     <Dialog.Portal>
@@ -73,6 +106,12 @@ export function EditBookForm() {
           onSubmit={handleSubmit(handleNewBookForm)}
           className="flex flex-col gap-3"
         >
+          <SelectInputControlled
+            control={control}
+            name="categoryId"
+            dataValue={categories}
+          />
+
           <label htmlFor="name">
             Nome do livro
             <TextInput.Root className="mt-1">

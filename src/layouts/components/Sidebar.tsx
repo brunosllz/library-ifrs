@@ -47,7 +47,6 @@ export function Sidebar() {
                 to="books"
                 end
                 className={({ isActive }) => {
-                  console.log('books: ', isActive)
                   return clsx(
                     'flex items-center px-4 py-2 gap-2 hover:bg-gray-700 transition-colors pl-8',
                     {
@@ -64,7 +63,6 @@ export function Sidebar() {
               <NavLink
                 to="books/categories"
                 className={({ isActive }) => {
-                  console.log('categories: ', isActive)
                   return clsx(
                     'flex items-center px-4 py-2 gap-2 hover:bg-gray-700 transition-colors pl-8',
                     {
