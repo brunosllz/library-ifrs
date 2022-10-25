@@ -40,7 +40,7 @@ export function CategoriesTable() {
                 </td>
                 <td className="p-3 border-t-4 border-gray-700 bg-gray-400 ">
                   <div className="flex items-center justify-center gap-2">
-                    <Dialog.Root open={open} onOpenChange={setOpen}>
+                    <Dialog.Root>
                       <Dialog.Trigger asChild>
                         <Button.Root title="Editar" className="py-2 px-3">
                           <Button.Icon>
@@ -50,7 +50,7 @@ export function CategoriesTable() {
                       </Dialog.Trigger>
 
                       <EditCategoryForm
-                        category={category}
+                        categoryId={category.id}
                         closeModal={closeModal}
                       />
                     </Dialog.Root>

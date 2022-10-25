@@ -152,7 +152,7 @@ async function fetchCategoriesData() {
   return response.data
 }
 
-interface useCategoriesDataProps {
+interface useFetchCategoriesDataProps {
   onSuccess?: (data: CategoryProps[]) => void
   onError?: (err: Error) => void
 }
@@ -160,7 +160,7 @@ interface useCategoriesDataProps {
 export function useFetchCategoriesData({
   onSuccess,
   onError,
-}: useCategoriesDataProps) {
+}: useFetchCategoriesDataProps) {
   const queryResponse = useQuery<CategoryProps[], Error>(
     ['categories'],
     fetchCategoriesData,

@@ -15,22 +15,6 @@
       "createdAt": "2022-10-16T02:58:24.466Z",
       "updatedAt": "2022-10-25T17:22:06.296Z",
       "id": "3"
-    },
-    {
-      "name": "ghhgh",
-      "createdAt": "2022-10-25T17:25:28.328Z",
-      "id": "gfFXd5f"
-    },
-    {
-      "name": "dasda",
-      "createdAt": "2022-10-25T17:26:32.664Z",
-      "id": "n7u0g4d"
-    },
-    {
-      "name": "dasdasda",
-      "createdAt": "2022-10-25T17:26:57.839Z",
-      "updatedAt": "2022-10-25T17:33:58.136Z",
-      "id": "HEY4IeH"
     }
   ],
   "books": [
@@ -69,38 +53,6 @@
       "createdAt": "2022-10-16T02:58:24.466Z",
       "updatedAt": "2022-10-25T17:21:09.003Z",
       "id": "3"
-    },
-    {
-      "name": "teste",
-      "publishingCompany": "Objetiv",
-      "imageUrl": "https://www.linkedin.com/feed/",
-      "countPage": "350",
-      "publishedYear": "2022",
-      "description": "chchfgh",
-      "category": {
-        "id": "gfFXd5f",
-        "name": "ghhgh",
-        "createdAt": "2022-10-25T17:25:28.328Z"
-      },
-      "categoryId": "gfFXd5f",
-      "createdAt": "2022-10-25T17:31:13.209Z",
-      "id": "fMEodDR"
-    },
-    {
-      "name": "dasdas",
-      "publishingCompany": "asdas",
-      "imageUrl": "https://www.linkedin.com/feed/",
-      "countPage": "222",
-      "publishedYear": "2022",
-      "description": "dasdasd",
-      "category": {
-        "id": "n7u0g4d",
-        "name": "dasda",
-        "createdAt": "2022-10-25T17:26:32.664Z"
-      },
-      "categoryId": "n7u0g4d",
-      "createdAt": "2022-10-25T17:32:43.456Z",
-      "id": "dva54u4"
     }
   ]
 }

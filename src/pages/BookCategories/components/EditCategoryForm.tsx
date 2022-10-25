@@ -1,5 +1,8 @@
 import { useForm } from 'react-hook-form'
-import { useEditCategory } from '../../../hooks/useBooksData'
+import {
+  useEditCategory,
+  useFetchCategoriesData,
+} from '../../../hooks/useBooksData'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
 
@@ -9,14 +12,8 @@ import { TextInput } from '../../../components/TextInput'
 
 import { X } from 'phosphor-react'
 
-interface CategoryEdit {
-  id: string
-  name: string
-  createdAt: Date
-}
-
 interface EditCategoryFormProps {
-  category: CategoryEdit
+  categoryId: string
   closeModal: () => void
 }
 
@@ -29,7 +26,7 @@ const editCategoryFormSchemaValidation = z.object({
 type editCategoryFormType = z.infer<typeof editCategoryFormSchemaValidation>
 
 export function EditCategoryForm({
-  category,
+  categoryId,
   closeModal,
 }: EditCategoryFormProps) {
   const {
@@ -42,20 +39,25 @@ export function EditCategoryForm({
   })
 
   const { mutate: editCategory, isLoading, isSuccess } = useEditCategory()
+  const { categories } = useFetchCategoriesData({})
 
   function handleNewBookForm(data: editCategoryFormType) {
     const editedCategory = Object.assign(data, {
-      createdAt: category.createdAt,
+      createdAt: new Date(),
       updatedAt: new Date(),
     })
 
-    editCategory({ categoryId: category.id, editedCategory })
+    editCategory({ categoryId, editedCategory })
     reset()
 
     if (isSuccess) {
       closeModal()
     }
   }
+
+  const categoryFiltered = categories.find(
+    (category) => category.id === categoryId,
+  )
 
   return (
     <Dialog.Portal>
@@ -77,7 +79,7 @@ export function EditCategoryForm({
             <TextInput.Root className="mt-2">
               <TextInput.Input
                 id="name"
-                defaultValue={category.name}
+                defaultValue={categoryFiltered?.name}
                 placeholder="Business & Economics"
                 error={!!errors.name}
                 {...register('name')}
