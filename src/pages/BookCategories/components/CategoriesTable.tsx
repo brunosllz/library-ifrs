@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useFetchCategoriesData } from '../../../hooks/useBooksData'
 import { format } from 'date-fns'
 
@@ -10,13 +9,7 @@ import { CircleNotch, PencilSimpleLine, Trash } from 'phosphor-react'
 import { EditCategoryForm } from './EditCategoryForm'
 
 export function CategoriesTable() {
-  const [open, setOpen] = useState(false)
   const { categories, isLoading, isError, error } = useFetchCategoriesData({})
-
-  function closeModal() {
-    console.log(open)
-    setOpen(!open)
-  }
 
   return (
     <div className="overflow-auto">
@@ -49,10 +42,7 @@ export function CategoriesTable() {
                         </Button.Root>
                       </Dialog.Trigger>
 
-                      <EditCategoryForm
-                        categoryId={category.id}
-                        closeModal={closeModal}
-                      />
+                      <EditCategoryForm category={category} />
                     </Dialog.Root>
 
                     <Dialog.Root>
@@ -80,13 +70,6 @@ export function CategoriesTable() {
           })}
         </tbody>
       </table>
-
-      {/* {dontHasBooks && (
-        <div className="w-full h-56 flex flex-col gap-2 items-center justify-center">
-          <WarningCircle size={32} weight="bold" />
-          <span>Não foi possível encontrar um livro</span>
-        </div>
-      )} */}
 
       {isLoading && (
         <div className="w-full h-56 flex flex-col gap-2 items-center justify-center">

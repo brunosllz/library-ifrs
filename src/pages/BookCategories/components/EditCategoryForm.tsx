@@ -1,8 +1,5 @@
 import { useForm } from 'react-hook-form'
-import {
-  useEditCategory,
-  useFetchCategoriesData,
-} from '../../../hooks/useBooksData'
+import { useEditCategory } from '../../../hooks/useBooksData'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
 
@@ -12,9 +9,14 @@ import { TextInput } from '../../../components/TextInput'
 
 import { X } from 'phosphor-react'
 
+interface CategoryEdit {
+  id: string
+  name: string
+  createdAt: Date
+}
+
 interface EditCategoryFormProps {
-  categoryId: string
-  closeModal: () => void
+  category: CategoryEdit
 }
 
 const editCategoryFormSchemaValidation = z.object({
@@ -25,10 +27,7 @@ const editCategoryFormSchemaValidation = z.object({
 
 type editCategoryFormType = z.infer<typeof editCategoryFormSchemaValidation>
 
-export function EditCategoryForm({
-  categoryId,
-  closeModal,
-}: EditCategoryFormProps) {
+export function EditCategoryForm({ category }: EditCategoryFormProps) {
   const {
     register,
     handleSubmit,
@@ -38,26 +37,17 @@ export function EditCategoryForm({
     resolver: zodResolver(editCategoryFormSchemaValidation),
   })
 
-  const { mutate: editCategory, isLoading, isSuccess } = useEditCategory()
-  const { categories } = useFetchCategoriesData({})
+  const { mutate: editCategory, isLoading } = useEditCategory()
 
   function handleNewBookForm(data: editCategoryFormType) {
     const editedCategory = Object.assign(data, {
-      createdAt: new Date(),
+      createdAt: category.createdAt,
       updatedAt: new Date(),
     })
 
-    editCategory({ categoryId, editedCategory })
+    editCategory({ categoryId: category.id, editedCategory })
     reset()
-
-    if (isSuccess) {
-      closeModal()
-    }
   }
-
-  const categoryFiltered = categories.find(
-    (category) => category.id === categoryId,
-  )
 
   return (
     <Dialog.Portal>
@@ -79,7 +69,7 @@ export function EditCategoryForm({
             <TextInput.Root className="mt-2">
               <TextInput.Input
                 id="name"
-                defaultValue={categoryFiltered?.name}
+                defaultValue={category.name}
                 placeholder="Business & Economics"
                 error={!!errors.name}
                 {...register('name')}
