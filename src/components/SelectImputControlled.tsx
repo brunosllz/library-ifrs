@@ -26,7 +26,6 @@ export function SelectInputControlled<T extends FieldValues = FieldValues>({
     fieldState: { error },
   } = useController({ name, control })
 
-  console.log(value)
   return (
     <Listbox value={value} onChange={onChange}>
       <div className="relative mt-1">
@@ -39,11 +38,11 @@ export function SelectInputControlled<T extends FieldValues = FieldValues>({
             },
           )}
         >
-          {value ? (
+          {value.name ? (
             <span className="block truncate">{value.name}</span>
           ) : (
-            <span className="block truncate text-zinc-500 text-left">
-              Selecione o game que deseja jogar
+            <span className="block truncate text-zinc-500">
+              Selecione a categoria
             </span>
           )}
           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">

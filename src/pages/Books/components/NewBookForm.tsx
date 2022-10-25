@@ -38,7 +38,11 @@ const newBookFormSchemaValidation = z.object({
     .min(4, 'Infome o ano de publicação')
     .regex(/^(1|2)\d{3}/, { message: 'Informe um ano válido' }),
   description: z.string().min(1, { message: 'Informe uma descrição do livro' }),
-  category: z.string(),
+  category: z.object({
+    id: z.string().min(1),
+    name: z.string().min(1),
+    createdAt: z.string().min(1),
+  }),
 })
 
 type newBookFormType = z.infer<typeof newBookFormSchemaValidation>
@@ -54,6 +58,11 @@ export function NewBookForm() {
     formState: { errors },
   } = useForm<newBookFormType>({
     resolver: zodResolver(newBookFormSchemaValidation),
+    defaultValues: {
+      category: {
+        name: '',
+      },
+    },
   })
 
   const { mutate: addNewBook, isLoading } = useAddNewBook()
@@ -61,9 +70,11 @@ export function NewBookForm() {
 
   function handleNewBookForm(data: newBookFormType) {
     const newBook = Object.assign(data, {
+      categoryId: data.category.id,
       createdAt: new Date(),
     })
 
+    console.log(newBook)
     addNewBook(newBook)
     reset()
   }

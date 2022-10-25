@@ -65,7 +65,7 @@ interface addNewBookProps {
   publishedYear: string
   countPage: string
   imageUrl: string
-  // categoryId: string
+  categoryId: string
   createdAt: Date
 }
 
