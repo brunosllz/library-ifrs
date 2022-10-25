@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
@@ -11,8 +11,13 @@ import { NewBookForm } from './components/NewBookForm'
 import { Plus, MagnifyingGlass } from 'phosphor-react'
 
 export function Books() {
+  const [open, setOpen] = useState(false)
   const [searchBook, setSearchBook] = useSearchParams()
   const { register, watch } = useForm()
+
+  function closeModal() {
+    return setOpen(!open)
+  }
 
   const searchBookValue = watch('searchBook')
 
@@ -29,7 +34,7 @@ export function Books() {
   return (
     <main className="flex flex-col">
       <header className="bg-gray-700 py-4 px-6 flex justify-between items-center w-full">
-        <Dialog.Root>
+        <Dialog.Root open={open} onOpenChange={setOpen}>
           <Dialog.Trigger asChild>
             <Button.Root>
               <Button.Icon>
@@ -39,7 +44,7 @@ export function Books() {
             </Button.Root>
           </Dialog.Trigger>
 
-          <NewBookForm />
+          <NewBookForm closeModal={closeModal} />
         </Dialog.Root>
 
         <div className="w-80">

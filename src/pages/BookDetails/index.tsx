@@ -10,9 +10,15 @@ import { EditBookForm } from './components/EditBookForm'
 
 import { PencilSimpleLine } from 'phosphor-react'
 import { SkeletonBookDetails } from './components/SkeletonBookDetails'
+import { useState } from 'react'
 
 export function BookDetails() {
   const { bookId } = useParams()
+  const [open, setOpen] = useState(false)
+
+  function closeModal() {
+    return setOpen(!open)
+  }
 
   const { book, isLoading } = useFetchBookDetails(bookId)
   const { categories } = useFetchCategoriesData({})
@@ -24,7 +30,7 @@ export function BookDetails() {
   return (
     <main className="flex flex-col">
       <header className="bg-gray-700 py-4 px-6 flex justify-between items-center w-full">
-        <Dialog.Root>
+        <Dialog.Root open={open} onOpenChange={setOpen}>
           <Dialog.Trigger asChild>
             <Button.Root>
               <Button.Icon>
@@ -34,7 +40,7 @@ export function BookDetails() {
             </Button.Root>
           </Dialog.Trigger>
 
-          <EditBookForm />
+          <EditBookForm closeModal={closeModal} />
         </Dialog.Root>
       </header>
 

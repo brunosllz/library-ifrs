@@ -9,6 +9,10 @@ import { TextInput } from '../../../components/TextInput'
 
 import { X } from 'phosphor-react'
 
+interface NewCategoryFormProps {
+  closeModal: () => void
+}
+
 const newCategoryFormSchemaValidation = z.object({
   name: z
     .string({ required_error: 'Informe o nome da categoria' })
@@ -17,7 +21,7 @@ const newCategoryFormSchemaValidation = z.object({
 
 type newCategoryFormType = z.infer<typeof newCategoryFormSchemaValidation>
 
-export function NewCategoryForm() {
+export function NewCategoryForm({ closeModal }: NewCategoryFormProps) {
   const {
     register,
     handleSubmit,
@@ -28,7 +32,7 @@ export function NewCategoryForm() {
     resolver: zodResolver(newCategoryFormSchemaValidation),
   })
 
-  const { mutate: addNewCategory, isLoading } = useAddNewCategory()
+  const { mutate: addNewCategory, isLoading, isSuccess } = useAddNewCategory()
 
   function handleNewBookForm(data: newCategoryFormType) {
     const newCategory = Object.assign(data, {
@@ -38,6 +42,10 @@ export function NewCategoryForm() {
     addNewCategory(newCategory)
 
     reset()
+
+    if (isSuccess) {
+      closeModal()
+    }
   }
 
   return (

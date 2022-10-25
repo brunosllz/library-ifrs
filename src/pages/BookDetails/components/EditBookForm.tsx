@@ -16,6 +16,10 @@ import { SelectInputControlled } from '../../../components/SelectImputControlled
 import { X } from 'phosphor-react'
 import { useEffect } from 'react'
 
+interface EditBookFormProps {
+  closeModal: () => void
+}
+
 const editBookFormSchemaValidation = z.object({
   name: z
     .string({ required_error: 'Informe o nome do livro' })
@@ -45,7 +49,7 @@ const editBookFormSchemaValidation = z.object({
 
 type editBookFormType = z.infer<typeof editBookFormSchemaValidation>
 
-export function EditBookForm() {
+export function EditBookForm({ closeModal }: EditBookFormProps) {
   const {
     register,
     handleSubmit,
@@ -54,18 +58,13 @@ export function EditBookForm() {
     formState: { errors },
   } = useForm<editBookFormType>({
     resolver: zodResolver(editBookFormSchemaValidation),
-    // defaultValues: {
-    //   category: {
-    //     name: '',
-    //   },
-    // },
   })
 
   const { bookId } = useParams()
 
   const { book } = useFetchBookDetails(bookId)
   const { categories } = useFetchCategoriesData({})
-  const { mutate: editBook, isLoading } = useEditBook(bookId)
+  const { mutate: editBook, isLoading, isSuccess } = useEditBook(bookId)
 
   function handleNewBookForm(data: editBookFormType) {
     const editedBook = Object.assign(data, {
@@ -75,6 +74,9 @@ export function EditBookForm() {
     })
 
     editBook({ bookId, editedBook })
+    if (isSuccess) {
+      closeModal()
+    }
   }
 
   const searchSelectedCategory = categories.find(

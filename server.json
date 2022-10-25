@@ -13,13 +13,24 @@
     {
       "name": "Self-Help, Relationships & Lifestyle - Self Help",
       "createdAt": "2022-10-16T02:58:24.466Z",
-      "updatedAt": "2022-10-25T16:27:22.207Z",
+      "updatedAt": "2022-10-25T17:22:06.296Z",
       "id": "3"
     },
     {
-      "name": "teste",
-      "createdAt": "2022-10-25T16:28:58.850Z",
-      "id": "rSmMuWL"
+      "name": "ghhgh",
+      "createdAt": "2022-10-25T17:25:28.328Z",
+      "id": "gfFXd5f"
+    },
+    {
+      "name": "dasda",
+      "createdAt": "2022-10-25T17:26:32.664Z",
+      "id": "n7u0g4d"
+    },
+    {
+      "name": "dasdasda",
+      "createdAt": "2022-10-25T17:26:57.839Z",
+      "updatedAt": "2022-10-25T17:33:58.136Z",
+      "id": "HEY4IeH"
     }
   ],
   "books": [
@@ -48,15 +59,48 @@
       "id": "2"
     },
     {
-      "id": "3",
       "name": "Do mil ao milhão: Sem cortar o cafezinho",
       "publishingCompany": "HarperCollins Brasil",
-      "description": "Em seu primeiro livro, Thiago Nigro, criador da plataforma O Primo Rico, ensina aos leitores os três pilares para atingir a independência financeira: gastar bem, investir melhor e ganhar mais. Por meio de dados e de sua própria experiência como investidor e assessor, Nigro mostra que a riqueza é possível para todos – basta estar disposto a aprender e se dedicar.",
-      "publishedYear": "2018",
-      "countPage": "224",
       "imageUrl": "https://covers.zlibcdn2.com/covers299/books/99/b8/b0/99b8b0d8aae479e39dcf47cba36100e5.jpg",
+      "countPage": "224",
+      "publishedYear": "2018",
+      "description": "Em seu primeiro livro, Thiago Nigro, criador da plataforma O Primo Rico, ensina aos leitores os três pilares para atingir a independência financeira: gastar bem, investir melhor e ganhar mais. Por meio de dados e de sua própria experiência como investidor e assessor, Nigro mostra que a riqueza é possível para todos – basta estar disposto a aprender e se dedicar.",
       "categoryId": "1",
-      "createdAt": "2022-10-16T02:58:24.466Z"
+      "createdAt": "2022-10-16T02:58:24.466Z",
+      "updatedAt": "2022-10-25T17:21:09.003Z",
+      "id": "3"
+    },
+    {
+      "name": "teste",
+      "publishingCompany": "Objetiv",
+      "imageUrl": "https://www.linkedin.com/feed/",
+      "countPage": "350",
+      "publishedYear": "2022",
+      "description": "chchfgh",
+      "category": {
+        "id": "gfFXd5f",
+        "name": "ghhgh",
+        "createdAt": "2022-10-25T17:25:28.328Z"
+      },
+      "categoryId": "gfFXd5f",
+      "createdAt": "2022-10-25T17:31:13.209Z",
+      "id": "fMEodDR"
+    },
+    {
+      "name": "dasdas",
+      "publishingCompany": "asdas",
+      "imageUrl": "https://www.linkedin.com/feed/",
+      "countPage": "222",
+      "publishedYear": "2022",
+      "description": "dasdasd",
+      "category": {
+        "id": "n7u0g4d",
+        "name": "dasda",
+        "createdAt": "2022-10-25T17:26:32.664Z"
+      },
+      "categoryId": "n7u0g4d",
+      "createdAt": "2022-10-25T17:32:43.456Z",
+      "id": "dva54u4"
     }
   ]
 }

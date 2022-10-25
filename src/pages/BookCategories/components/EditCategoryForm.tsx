@@ -17,6 +17,7 @@ interface CategoryEdit {
 
 interface EditCategoryFormProps {
   category: CategoryEdit
+  closeModal: () => void
 }
 
 const editCategoryFormSchemaValidation = z.object({
@@ -27,7 +28,10 @@ const editCategoryFormSchemaValidation = z.object({
 
 type editCategoryFormType = z.infer<typeof editCategoryFormSchemaValidation>
 
-export function EditCategoryForm({ category }: EditCategoryFormProps) {
+export function EditCategoryForm({
+  category,
+  closeModal,
+}: EditCategoryFormProps) {
   const {
     register,
     handleSubmit,
@@ -37,7 +41,7 @@ export function EditCategoryForm({ category }: EditCategoryFormProps) {
     resolver: zodResolver(editCategoryFormSchemaValidation),
   })
 
-  const { mutate: editCategory, isLoading } = useEditCategory()
+  const { mutate: editCategory, isLoading, isSuccess } = useEditCategory()
 
   function handleNewBookForm(data: editCategoryFormType) {
     const editedCategory = Object.assign(data, {
@@ -47,6 +51,10 @@ export function EditCategoryForm({ category }: EditCategoryFormProps) {
 
     editCategory({ categoryId: category.id, editedCategory })
     reset()
+
+    if (isSuccess) {
+      closeModal()
+    }
   }
 
   return (

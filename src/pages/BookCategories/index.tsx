@@ -4,12 +4,19 @@ import { CategoriesTable } from './components/CategoriesTable'
 import { NewCategoryForm } from './components/NewCategoryForm'
 
 import { Plus } from 'phosphor-react'
+import { useState } from 'react'
 
 export function BookCategories() {
+  const [open, setOpen] = useState(false)
+
+  function closeModal() {
+    setOpen(!open)
+  }
+
   return (
     <main>
       <header className="bg-gray-700 py-4 px-6 flex justify-between items-center w-full">
-        <Dialog.Root>
+        <Dialog.Root open={open} onOpenChange={setOpen}>
           <Dialog.Trigger asChild>
             <Button.Root>
               <Button.Icon>
@@ -19,7 +26,7 @@ export function BookCategories() {
             </Button.Root>
           </Dialog.Trigger>
 
-          <NewCategoryForm />
+          <NewCategoryForm closeModal={closeModal} />
         </Dialog.Root>
 
         <div className="w-80"></div>

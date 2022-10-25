@@ -16,6 +16,10 @@ import { TextInput } from '../../../components/TextInput'
 import { X } from 'phosphor-react'
 import { SelectInputControlled } from '../../../components/SelectImputControlled'
 
+interface NewBookFormProps {
+  closeModal: () => void
+}
+
 const newBookFormSchemaValidation = z.object({
   name: z
     .string({ required_error: 'Informe o nome do livro' })
@@ -47,7 +51,7 @@ const newBookFormSchemaValidation = z.object({
 
 type newBookFormType = z.infer<typeof newBookFormSchemaValidation>
 
-export function NewBookForm() {
+export function NewBookForm({ closeModal }: NewBookFormProps) {
   const {
     register,
     handleSubmit,
@@ -63,7 +67,7 @@ export function NewBookForm() {
     },
   })
 
-  const { mutate: addNewBook, isLoading } = useAddNewBook()
+  const { mutate: addNewBook, isLoading, isSuccess } = useAddNewBook()
   const { categories } = useFetchCategoriesData({})
 
   function handleNewBookForm(data: newBookFormType) {
@@ -73,7 +77,12 @@ export function NewBookForm() {
     })
 
     addNewBook(newBook)
+
     reset()
+
+    if (isSuccess) {
+      closeModal()
+    }
   }
 
   const publishedYearValue = watch('publishedYear')
