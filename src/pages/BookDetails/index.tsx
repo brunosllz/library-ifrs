@@ -1,5 +1,8 @@
 import { useParams } from 'react-router-dom'
-import { useFetchBookDetails } from '../../hooks/useBooksData'
+import {
+  useFetchBookDetails,
+  useFetchCategoriesData,
+} from '../../hooks/useBooksData'
 
 import * as Dialog from '@radix-ui/react-dialog'
 import { Button } from '../../components/Button'
@@ -12,6 +15,11 @@ export function BookDetails() {
   const { bookId } = useParams()
 
   const { book, isLoading } = useFetchBookDetails(bookId)
+  const { categories } = useFetchCategoriesData({})
+
+  const bookCategory = categories.find(
+    (category) => category.id === book.categoryId,
+  )
 
   return (
     <main className="flex flex-col">
@@ -55,7 +63,7 @@ export function BookDetails() {
                   <div className="flex flex-col gap-2">
                     <strong>
                       Categoria:{' '}
-                      <span className="font-normal">{book.categoryId}</span>
+                      <span className="font-normal">{bookCategory?.name}</span>
                     </strong>
 
                     <strong>
