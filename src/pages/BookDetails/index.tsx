@@ -32,7 +32,7 @@ export function BookDetails() {
       <header className="bg-gray-700 py-4 px-6 flex justify-between items-center w-full">
         <Dialog.Root open={open} onOpenChange={setOpen}>
           <Dialog.Trigger asChild>
-            <Button.Root>
+            <Button.Root disabled={isLoading}>
               <Button.Icon>
                 <PencilSimpleLine weight="bold" />
               </Button.Icon>
