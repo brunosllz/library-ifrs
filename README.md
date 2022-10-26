@@ -79,6 +79,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ## [](https://github.com/brunosllz/coffee-delivery#--milhas-a-mais) 🚀 Milhas a mais 
 
-- [ ] Reponsividade da aplicação
-- [ ] Componente de utilizando markdown para descrição do livro
+- [ ] Responsividade da aplicação
+- [ ] Componente de markdown para descrição do livro
 
