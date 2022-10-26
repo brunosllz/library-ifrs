@@ -13,7 +13,7 @@
 
 <br/>
 
-![](https://github.com/brunosllz/coffee-delivery/blob/main/src/assets/cover.png)
+![](https://github.com/brunosllz/library-ifrs/blob/main/src/assets/cover-github.png)
 
 ## [](https://github.com/brunosllz/library-ifrs#--sobre-o-projeto) 💻 Sobre o projeto
 
@@ -55,7 +55,7 @@ $ npm run dev:server
 
  Aqui você pode visualizar um pouco do layout e funcionalidades da aplicação.
  
- ![GIF](https://github.com/brunosllz/coffee-delivery/blob/main/src/assets/app-example.gif)
+ ![GIF](https://github.com/brunosllz/library-ifrs/blob/main/src/assets/gif-github.gif)
 
 ---
 
