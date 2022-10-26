@@ -17,7 +17,8 @@
 
 ## [](https://github.com/brunosllz/library-ifrs#--sobre-o-projeto) 💻 Sobre o projeto
 
-Projeto desenvolvido no Segundo desafio da trilha de ReactJS no Ignite da [Rocketseat](https://www.rocketseat.com.br/), o projeto tem como premissa reforçar os conceitos do React como Estados, ContextAPI, LocalStorage, Imutabilidade do estado, Listas e chaves no ReactJS, Propriedades e Componentização.
+Projeto desenvolvido com base em uma [atividade](https://drive.google.com/file/d/1rYP4eKmp3S8mI_B7vzawd5-mytJQ_MSh/view?usp=sharing) proposta na faculdade, onde o objetivo era criar uma aplicação para fazer a gestão dos livros da biblioteca do IFRS-Campus Bento Gonçalves.
+Com base na proposta, resolvi complementar com outro estudo que vinha fazendo, sobre a utilização da biblioteca React Query.
 
 ---
 
