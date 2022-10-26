@@ -81,4 +81,5 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 - [ ] Responsividade da aplicação
 - [ ] Componente de markdown para descrição do livro
+- [ ] Criar paginação das tabelas
 
